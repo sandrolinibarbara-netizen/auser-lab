@@ -1,0 +1,10 @@
+<script src="<?=ROOT?>metronic/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/courses/kt_datatable_next_lessons_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/courses/kt_datatable_users_private_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/courses/kt_datatable_drafts_lessons_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/courses/lessonCloning.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/modals/removeModal.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/courses/addStudents.js"></script>
+<script src="<?=ROOT?>metronic/assets/js/widgets.bundle.js"></script>
+<script src="<?=ROOT?>metronic/assets/js/custom/widgets.js"></script>
+<script src="<?=ROOT?>app/helpers.js"></script>

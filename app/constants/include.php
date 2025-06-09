@@ -1,0 +1,22 @@
+<?php
+define("USERS", "utenti");
+define("PAGES", "pagine");
+define("USERSGROUPS", "utenti_gruppi");
+define("GROUPS", "gruppi");
+define("GROUPSPAGES", "gruppipagine");
+define("PERMISSIONS", "permessi");
+define("PERMISSIONSPAGESGROUPS", "permessipaginegruppi");
+define("LIVE", "dirette");
+define("COURSES", "corsi");
+define("LECTURENOTES", "dispense");
+define("POLLS", "polls");
+define("FILELECTURES", "filedispense");
+define("QUESTIONS", "domande");
+define("THREADS", "thread");
+define("MARKERS", "marker");
+define("REGISTER", "registro");
+define("SPONSORS", "sponsor");
+define("SPEAKERS", "speakers");
+define("SURVEYS", "sondaggi");
+define("SURVEYSQUESTIONS", "domandesondaggi");
+define("CATEGORIES", "argomenti");

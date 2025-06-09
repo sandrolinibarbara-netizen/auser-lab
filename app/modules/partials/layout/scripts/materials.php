@@ -1,0 +1,15 @@
+<script src="<?=ROOT?>metronic/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/kt_datatable_lecture_notes_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/kt_datatable_polls_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/kt_datatable_homeworks_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/viewQr.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/live-modals/poll-fill.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/live-modals/lecture-note-fill.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/kt_datatable_surveys_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/kt_datatable_materials_draft_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/kt_datatable_materials_draftSurveys_tab.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/materials/resetTables.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/modals/removeModal.js"></script>
+<script src="<?=ROOT?>metronic/assets/js/widgets.bundle.js"></script>
+<script src="<?=ROOT?>metronic/assets/js/custom/widgets.js"></script>
+<script src="<?=ROOT?>app/helpers.js"></script>

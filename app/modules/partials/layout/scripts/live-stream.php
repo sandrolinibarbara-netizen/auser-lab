@@ -1,0 +1,9 @@
+<script src="<?=ROOT?>app/modules/partials/components/live-modals/poll-fill.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/live-modals/lecture-note-fill.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/live-modals/survey-fill.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/live-stream/getMarkers.js"></script>
+<script src="<?=ROOT?>app/modules/partials/components/live-modals/sendEmail.js"></script>
+<script src="https://vjs.zencdn.net/8.12.0/video.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/videojs-markers/0.7.0/videojs-markers.min.js'></script>
+<script src="<?=ROOT?>metronic/assets/js/widgets.bundle.js"></script>
+<script src="<?=ROOT?>metronic/assets/js/custom/widgets.js"></script>
