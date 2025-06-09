@@ -5,7 +5,7 @@ if($_SERVER["SERVER_NAME"] == '127.0.0.1' || $_SERVER["SERVER_NAME"] == 'localho
     define("DATABASETYPE", "mysql");
     define("DATABASENAME", "auser");
     define("SERVER", "localhost");
-    define("URL_SERVER", "http://localhost:8888/auser_live/");
+    define("URL_SERVER", "http://localhost:8888/auser/");
     define("USER", "root");
     define("PWD", "root");
 
@@ -24,8 +24,8 @@ if($_SERVER["SERVER_NAME"] == '127.0.0.1' || $_SERVER["SERVER_NAME"] == 'localho
 /* Root */
 if($_SERVER["SERVER_NAME"] == '127.0.0.1' || $_SERVER["SERVER_NAME"] == 'localhost') {
 
-    define("ROOT", "/auser_live/");
-    define("UPLOADDIR", "/Applications/MAMP/htdocs/auser_live/");
+    define("ROOT", "/auser/");
+    define("UPLOADDIR", "/Applications/MAMP/htdocs/auser/");
 
 } else {
 

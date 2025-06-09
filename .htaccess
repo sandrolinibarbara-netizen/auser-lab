@@ -1,0 +1,67 @@
+RewriteEngine On
+#a volerlo farlo giusto, qua in realtà ci vanno i controller/il router - così almeno le pagine che non hanno uno strato intermedio di Js fanno un po' meno lezzo
+
+RewriteRule ^home/shop app/controllers/EcommerceController.php
+RewriteRule ^home  app/controllers/EcommerceController.php
+RewriteRule ^iscrizione  app/modules/signup/index.php
+RewriteRule ^dashboard  app/modules/dashboard/index.php
+RewriteRule ^corsi-eventi  app/modules/courses-events/index.php
+RewriteRule ^new-course app/controllers/GeneralGetterController.php
+RewriteRule ^new-event app/controllers/GeneralGetterController.php
+RewriteRule ^corso app/controllers/CourseController.php
+RewriteRule ^evento app/controllers/LessonController.php
+RewriteRule ^update-course app/controllers/CourseController.php
+RewriteRule ^update-event app/modules/update-event/index.php
+
+RewriteRule ^update-lesson/update app/controllers/LessonController.php
+RewriteRule ^update-lesson app/modules/update-lesson/index.php
+
+RewriteRule ^update-lecture-note app/controllers/LectureNoteController.php
+RewriteRule ^update-poll app/controllers/PollController.php
+RewriteRule ^update-survey app/controllers/SurveyController.php
+RewriteRule ^faq  app/modules/faq/index.php
+RewriteRule ^registro  app/modules/register/index.php
+RewriteRule ^materiali  app/modules/materials/index.php
+RewriteRule ^partner  app/modules/sponsors/index.php
+RewriteRule ^relatori  app/modules/speakers/index.php
+RewriteRule ^new-speaker app/modules/speakers/new-speaker.php
+RewriteRule ^update-speaker app/controllers/SpeakerController.php
+RewriteRule ^messaggi/conversazione  app/controllers/MessagesController.php
+RewriteRule ^messaggi  app/modules/messages/index.php
+RewriteRule ^forum/corso/thread app/controllers/ForumController.php
+RewriteRule ^forum/corso app/modules/forum/single-forum.php
+RewriteRule ^forum  app/modules/forum/index.php
+RewriteRule ^attestati  app/modules/certificates/index.php
+RewriteRule ^profilo app/controllers/UserController.php
+RewriteRule ^utenti  app/modules/users/index.php
+RewriteRule ^new-user  app/modules/users/new-user.php
+RewriteRule ^categorie  app/modules/categories/index.php
+RewriteRule ^permessi/gruppo  app/modules/permissions/single-group.php
+RewriteRule ^permessi  app/modules/permissions/index.php
+RewriteRule ^utente app/controllers/UserController.php
+RewriteRule ^watch app/controllers/LiveController.php
+RewriteRule ^new-partner app/modules/sponsors/new-sponsor.php
+RewriteRule ^update-partner app/controllers/SponsorController.php
+RewriteRule ^new-category app/modules/categories/new-category.php
+RewriteRule ^update-category app/controllers/CategoryController.php
+RewriteRule ^checkout  app/controllers/EcommerceController.php
+RewriteRule ^bonifico app/modules/stripe/bank-transfer.php
+RewriteRule ^success/empty-and-subscribe app/controllers/EcommerceController.php
+RewriteRule ^success app/modules/stripe/success.php
+RewriteRule ^sub-approval/confirmed app/modules/approval/success.php
+RewriteRule ^sub-approval/rejected app/modules/approval/rejected.php
+RewriteRule ^sub-approval app/controllers/UserController.php
+RewriteRule ^recupero/mail app/modules/recovery/confirmation-email.php
+RewriteRule ^recupero/password app/modules/recovery/confirmation-email.php
+RewriteRule ^modifica-password/confirmed app/modules/recovery/success.php
+RewriteRule ^modifica-password/rejected app/modules/recovery/rejected.php
+RewriteRule ^modifica-password app/controllers/UserController.php
+RewriteRule ^conferma-registrazione app/modules/signup/confirmation.php
+RewriteRule ^mail-confermata app/modules/recovery/check-link.php
+RewriteRule ^conferma-password app/modules/recovery/confirmation-password.php
+RewriteRule ^tag app/controllers/GeneralGetterController.php
+RewriteRule ^download app/controllers/CourseController.php
+RewriteRule ^login app/modules/login/login.php
+RewriteRule ^qr app/modules/live-stream/qr-poll.php
+RewriteRule ^logout app/controllers/UserController.php
+

@@ -165,20 +165,35 @@ function generateItems(parsed) {
         if(el.categoria === 1) {
             const course = document.createElement('p');
             course.textContent = 'Corso';
-            course.classList.add('bg-light-bg', 'rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
+            course.classList.add('rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
+            if(el.data_inizio === '01/01/3000') {
+                course.classList.add('bg-primary-subtle');
+            } else {
+                course.classList.add('bg-light-bg');
+            }
             topContainer.append(course);
         }
         if(el.categoria === 2) {
             const event = document.createElement('p');
             event.textContent = 'Evento';
-            event.classList.add('bg-light-bg', 'rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
+            event.classList.add('rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
+            if(el.data_inizio === '01/01/3000') {
+                event.classList.add('bg-primary-subtle');
+            } else {
+                event.classList.add('bg-light-bg');
+            }
             topContainer.append(event);
         }
         const iconsContainer = document.createElement('div');
         iconsContainer.classList.add('d-flex', 'align-items-center', 'justify-content-end', 'gap-2');
         if(el.remoto === 1) {
             const screen = document.createElement('i');
-            screen.classList.add('ki-outline', 'ki-screen', 'bg-light-bg', 'rounded-circle', 'fs-5', 'text-black', 'p-2');
+            screen.classList.add('ki-outline', 'ki-screen', 'rounded-circle', 'fs-5', 'text-black', 'p-2');
+            if(el.data_inizio === '01/01/3000') {
+                screen.classList.add('bg-primary-subtle');
+            } else {
+                screen.classList.add('bg-light-bg');
+            }
             iconsContainer.append(screen);
         }
         if(el.presenza === 1) {
@@ -269,20 +284,20 @@ function generateOnDemand(parsed) {
         if(el.categoria === 1) {
             const course = document.createElement('p');
             course.textContent = 'Corso';
-            course.classList.add('bg-light-bg', 'rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
+            course.classList.add('bg-primary-subtle', 'rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
             topContainer.append(course);
         }
         if(el.categoria === 2) {
             const event = document.createElement('p');
             event.textContent = 'Evento';
-            event.classList.add('bg-light-bg', 'rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
+            event.classList.add('bg-primary-subtle', 'rounded-pill', 'fs-5', 'text-black', 'px-2', 'py-1', 'mb-0', 'd-inline-block');
             topContainer.append(event);
         }
         const iconsContainer = document.createElement('div');
         iconsContainer.classList.add('d-flex', 'align-items-center', 'justify-content-end', 'gap-2');
         if(el.remoto === 1) {
             const screen = document.createElement('i');
-            screen.classList.add('ki-outline', 'ki-screen', 'bg-light-bg', 'rounded-circle', 'fs-5', 'text-black', 'p-2');
+            screen.classList.add('ki-outline', 'ki-screen', 'bg-primary-subtle', 'rounded-circle', 'fs-5', 'text-black', 'p-2');
             iconsContainer.append(screen);
         }
         if(el.presenza === 1) {

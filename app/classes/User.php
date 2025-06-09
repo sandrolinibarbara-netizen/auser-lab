@@ -284,9 +284,9 @@ class User extends BaseModel
         $icons = $iconsObj->getActions();
 
         $totalPages = $group == 1
-            ? "SELECT count(corsi.id) AS total FROM corsi WHERE corsi.active = 1"
+            ? "SELECT count(corsi.id) AS total FROM corsi WHERE corsi.active = 1 AND corsi.data_inizio != '3000-01-01'"
             : "SELECT count(corsi.id) AS total FROM corsi JOIN corsi_utenti ON corsi.id = corsi_utenti.id_corso 
-    WHERE corsi_utenti.id_utente = '$user' AND corsi.active = 1";
+    WHERE corsi_utenti.id_utente = '$user' AND corsi.active = 1 AND corsi.data_inizio != '3000-01-01'";
         $total = $this->db->query($totalPages)->fetchAll(PDO::FETCH_ASSOC);
         $total = isset($total[0]) ? $total[0]["total"]: 0;
 
@@ -348,9 +348,9 @@ class User extends BaseModel
         $limits = " LIMIT $limit OFFSET $skip";
 
         $query = $group == 1
-            ? "SELECT nome, data_inizio, data_fine, CAST(system_date_created AS DATE) as data_creazione, corsi.id FROM corsi WHERE corsi.active = 1".$dateRangeCreated.$dateRangeStart.$dateRangeEnd.$limits
+            ? "SELECT nome, data_inizio, data_fine, CAST(system_date_created AS DATE) as data_creazione, corsi.id FROM corsi WHERE corsi.active = 1 AND corsi.data_inizio != '3000-01-01'".$dateRangeCreated.$dateRangeStart.$dateRangeEnd.$limits
             : "SELECT nome, data_inizio, data_fine, CAST(system_date_created AS DATE) as data_creazione, corsi.id FROM corsi JOIN corsi_utenti ON corsi.id = corsi_utenti.id_corso 
-    WHERE corsi_utenti.id_utente = '$user' AND  corsi.active = 1".$dateRangeCreated.$dateRangeStart.$dateRangeEnd.$limits;
+    WHERE corsi_utenti.id_utente = '$user' AND  corsi.active = 1 AND corsi.data_inizio != '3000-01-01'".$dateRangeCreated.$dateRangeStart.$dateRangeEnd.$limits;
         $data = $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($data as $key => $value) {
