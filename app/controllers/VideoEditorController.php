@@ -59,13 +59,13 @@ if(isset($_POST['action']) && $_POST['action'] === 'deleteMarker') {
 if(isset($_POST['action']) && $_POST['action'] === 'uploadVideo') {
     require_once '../config/config_inc.php';
     $uploadObj = new Storage();
-//    $result = $uploadObj->upload_object($_POST['fileName'], $_POST['blob'], $_POST['idLesson']);
-    $data = [
-        'tmpName' => $_FILES['file']['tmp_name'],
-        'fileName' => $_FILES['file']['name'],
-    ];
-
-    $lesson = new Lesson($_POST['idLesson']);
-    $result = $lesson->uploadVideo($data);
+    $result = $uploadObj->upload_object($_POST['fileName'], $_POST['blob'], $_POST['idLesson']);
+//    $data = [
+//        'tmpName' => $_FILES['file']['tmp_name'],
+//        'fileName' => $_FILES['file']['name'],
+//    ];
+//
+//    $lesson = new Lesson($_POST['idLesson']);
+//    $result = $lesson->uploadVideo($data);
     echo json_encode($result);
 }

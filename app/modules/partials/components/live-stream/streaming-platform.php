@@ -80,8 +80,8 @@ if($parsed['lezione'][0]['url'] !== NULL) {
                 <span class="sr-only">Caricamento del video</span>
             </div>
         </div>
-        <video id="embedded-video" class="video-js vjs-default-skin w-75 h-500px rounded d-none" controls><source src="<?=ROOT.'app/assets/videos/'.$parsed['lezione'][0]['path_video']?>"></video>
-<!--        <video id="embedded-video" class="video-js vjs-default-skin w-75 h-500px rounded d-none" controls><source src="https://storage.cloud.google.com/auser-zoom-meetings/--><?php //=$parsed['lezione'][0]['id'].'/'.$parsed['lezione'][0]['path_video']?><!--"></video>-->
+<!--        <video id="embedded-video" class="video-js vjs-default-skin w-75 h-500px rounded d-none" controls><source src="--><?php //=ROOT.'app/assets/videos/'.$parsed['lezione'][0]['path_video']?><!--"></video>-->
+        <video id="embedded-video" class="video-js vjs-default-skin w-75 h-500px rounded d-none" controls><source src="https://storage.cloud.google.com/auser-zoom-meetings/<?=$parsed['lezione'][0]['id'].'/'.$parsed['lezione'][0]['path_video']?>"></video>
     <?php elseif($parsed['lezione'][0]['zoom_meeting'] !== NULL) :?>
         <div id="wait-meeting" class="w-75 h-500px rounded bg-auser d-flex flex-column gap-8 align-items-center justify-content-center position-relative" style="z-index: 1500">
             <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="w-50"/>

@@ -91,17 +91,17 @@ videoButton.addEventListener('click', function (e) {
     const reader = new FileReader();
     reader.readAsDataURL($('#video-fileInput')[0].files[0]);
     reader.addEventListener('load', () => {
-        // const fd = {
-        //     'idLesson': lesson.toString(),
-        //     'action': 'uploadVideo',
-        //     'fileName': $('#video-fileInput')[0].files[0].name,
-        //     'blob': reader.result
-        // }
-        const fd = new FormData();
-        fd.append('file', $('#video-fileInput')[0].files[0]);
-        fd.append('idLesson', lesson);
-        fd.append('action', 'uploadVideo');
-        fd.append('fileName', $('#video-fileInput')[0].files[0].name);
+        const fd = {
+            'idLesson': lesson.toString(),
+            'action': 'uploadVideo',
+            'fileName': $('#video-fileInput')[0].files[0].name,
+            'blob': reader.result
+        }
+        // const fd = new FormData();
+        // fd.append('file', $('#video-fileInput')[0].files[0]);
+        // fd.append('idLesson', lesson);
+        // fd.append('action', 'uploadVideo');
+        // fd.append('fileName', $('#video-fileInput')[0].files[0].name);
 
         $.ajax({
             type: 'POST',
@@ -810,8 +810,8 @@ function deleteVideo() {
     $.ajax({
         type:'POST',
         url: root + 'app/controllers/LessonController.php',
-        // data: {'lesson': lesson, 'action': 'deleteVideo', 'fileName': $('#video-fileName').text()},
-        data: {'lesson': lesson, 'action': 'deleteVideo'},
+        data: {'lesson': lesson, 'action': 'deleteVideo', 'fileName': $('#video-fileName').text()},
+        // data: {'lesson': lesson, 'action': 'deleteVideo'},
         success: function(data) {
             const video = document.getElementById('video-lesson-' + lesson);
             video.remove();

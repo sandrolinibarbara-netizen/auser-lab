@@ -14,9 +14,9 @@ if($_SERVER["SERVER_NAME"] == '127.0.0.1' || $_SERVER["SERVER_NAME"] == 'localho
     define("DATABASETYPE", "mysql");
     define("DATABASENAME", "auser");
     define("SERVER", "localhost");
-    define("URL_SERVER", "https://auser.devpws.it/");
+    define("URL_SERVER", "https://auserlabcr.it/");
     define("USER", "admin_auser");
-    define("PWD", "\$Ug9795oc");
+    define("PWD", "0_jIDmqQjgc61w&w");
 
 }
 

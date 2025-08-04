@@ -151,10 +151,10 @@ if(isset($_POST['action']) && $_POST['action'] === 'updateDraftLink') {
 
 if(isset($_POST['action']) && $_POST['action'] === 'deleteVideo') {
     require_once '../config/config_inc.php';
-    $lesson = new Lesson($_POST['lesson']);
-    $lesson->deleteVideo();
-//    $lesson = new Storage();
-//    $lesson->delete_object($_POST['fileName'], $_POST['lesson']);
+//    $lesson = new Lesson($_POST['lesson']);
+//    $lesson->deleteVideo();
+    $lesson = new Storage();
+    $lesson->delete_object($_POST['fileName'], $_POST['lesson']);
 }
 
 if(isset($_POST['action']) && $_POST['action'] === 'updateLesson') {

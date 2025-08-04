@@ -19,7 +19,7 @@ if(meetingSDKElement) {
     // Nebbia endpoint
     // const authEndpoint = 'https://zoom-meeting-sdk-auth-sample-lejy.onrender.com';
     // Auser endpoint
-    const authEndpoint = 'https://zoom-meeting-sdk-auth-sample-4ilo.onrender.com';
+    const authEndpoint = 'https://git.heroku.com/auser-zoom.git';
     const sdkKey = document.getElementById('zoom-sdkkey').value;
     const meetingNumber = $('#zoom-meeting').val().split(' ').join('');
     const pw = $('#zoom-pw').val();

@@ -11,7 +11,7 @@ class Storage extends BaseModel
     {
         $this->get_folder($id);
 
-        $config = ['projectId' => 'auser-prova'];
+        $config = ['projectId' => 'auser-prova', 'keyFilePath' => ROOT.'/app/constants/auser-prova-681b1e691b41.json'];
         $storage = new StorageClient($config);
         if (!$file = fopen($stream, 'r')) {
             throw new \InvalidArgumentException('Unable to open file for reading');
