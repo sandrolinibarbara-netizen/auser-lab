@@ -30,7 +30,7 @@ if($_SERVER["SERVER_NAME"] == '127.0.0.1' || $_SERVER["SERVER_NAME"] == 'localho
 } else {
 
     define("ROOT", "/");
-    define("UPLOADDIR", "/var/www/vhosts/auserlabcr.it/");
+    define("UPLOADDIR", "/var/www/vhosts/auserlabcr.it/httpdocs/");
 }
 
 define("ROOTDOCUMENT", ROOT.'documents/');
