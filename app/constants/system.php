@@ -12,7 +12,7 @@ if($_SERVER["SERVER_NAME"] == '127.0.0.1' || $_SERVER["SERVER_NAME"] == 'localho
 } else {
 
     define("DATABASETYPE", "mysql");
-    define("DATABASENAME", "auser");
+    define("DATABASENAME", "auser_db");
     define("SERVER", "localhost");
     define("URL_SERVER", "https://auserlabcr.it/");
     define("USER", "admin_auser");
@@ -30,7 +30,7 @@ if($_SERVER["SERVER_NAME"] == '127.0.0.1' || $_SERVER["SERVER_NAME"] == 'localho
 } else {
 
     define("ROOT", "/");
-    define("UPLOADDIR", "/var/www/vhosts/devpws.it/auser/");
+    define("UPLOADDIR", "/var/www/vhosts/auserlabcr.it/");
 }
 
 define("ROOTDOCUMENT", ROOT.'documents/');
@@ -62,13 +62,13 @@ define("IV", 'e84d9f0c-418b-43fd-adca-bf3073fb0aee');
 //define("EMAILSENDER", "auser@devpws.it");
 //define("EMAILSENDERAVATAR", "EVENT | Auser");
 
-define("EMAILHOST", "mail.kapeeto.com");
+define("EMAILHOST", "mail.auserlabcr.it");
 define("EMAILSMPTAUTH", true);
-define("EMAILUSERNAME", "hello@kapeeto.com");
-define("EMAILPWD", "RizGdZ+=;x5q");
+define("EMAILUSERNAME", "auserlabcr@nebbiamail.it");
+define("EMAILPWD", "P0(7gH_!934l");
 define("EMAILPORT", 587);
-define("EMAILSENDER", "hello@kapeeto.com");
-define("EMAILSENDERAVATAR", "Kapeeto");
+define("EMAILSENDER", "auserlabcr@nebbiamail.it");
+define("EMAILSENDERAVATAR", "Auser Lab");
 // Auser SDK ID
 define("ZOOMSDKKEY", "TiT3ypxRHaXOGibUSb7A");
 // Nebbia SDK ID
