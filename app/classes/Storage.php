@@ -9,6 +9,8 @@ class Storage extends BaseModel
     private $uploadedVideo;
     function upload_object(string $objectName, string $stream, string $id)
     {
+        $this->get_folder($id);
+
         $config = ['projectId' => 'auser-prova', 'keyFilePath' => UPLOADDIR.'app/constants/auser-prova-681b1e691b41.json'];
         $storage = new StorageClient($config);
         if (!$file = fopen($stream, 'r')) {
@@ -17,7 +19,7 @@ class Storage extends BaseModel
         $bucket = $storage->bucket('auser-zoom-meetings');
         $object = $bucket->upload($file, [
         //CON IL FOLDER, IL NOME DEL FILE DIVENTA FOLDER/NAME
-            'name' => $id.'-'.$objectName,
+            'name' => $id.'/'.$objectName,
         ]);
         //AGGIUNGERE IL NOME DEL FILE AL DB
         $user = $_SESSION[SESSIONROOT]['user'];
