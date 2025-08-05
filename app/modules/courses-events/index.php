@@ -18,7 +18,7 @@ $element = 'corso/evento';
                             <h2>Crea un corso</h2>
                         </div>
                         <div class="card-body pt-4 pb-8">
-                            <img class="h-125px w-100 object-fit-cover rounded" src="<?=ROOT?>app/assets/images/course.jpg" alt=""/>
+                            <img class="h-125px w-100 object-fit-cover rounded" src="<?=ROOT?>app/assets/images/course.webp" alt=""/>
                             <div class="w-100 text-end">
                                 <a href="<?=ROOT.'new-course?create=create-course'?>" class="btn btn-secondary mt-4">Crea un corso &rarr;</a>
                             </div>
@@ -31,7 +31,7 @@ $element = 'corso/evento';
                             <h2>Crea un evento</h2>
                         </div>
                         <div class="card-body pt-4 pb-8">
-                            <img class="h-125px w-100 object-fit-cover rounded" src="<?=ROOT?>app/assets/images/event.jpg" alt=""/>
+                            <img class="h-125px w-100 object-fit-cover rounded" src="<?=ROOT?>app/assets/images/event.webp" alt=""/>
                             <div class="w-100 text-end">
                                 <a href="<?=ROOT.'new-event?create=create-event'?>" class="btn btn-secondary mt-4">Crea un evento &rarr;</a>
                             </div>
