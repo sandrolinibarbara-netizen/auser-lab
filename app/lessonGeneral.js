@@ -169,10 +169,10 @@ videoButton.addEventListener('click', function (e) {
                             }
                         });
                     },
+                    complete: function() {
+                        document.getElementById('video-loader').classList.add('d-none');
+                    }
                 })            },
-            complete: function() {
-                document.getElementById('video-loader').classList.add('d-none');
-            }
         })
     })
 
