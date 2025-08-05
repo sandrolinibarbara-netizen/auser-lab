@@ -14,7 +14,8 @@
         "stripe/stripe-php": "^15.7",
         "phpoffice/phpspreadsheet": "^1.18",
         "chillerlan/php-qrcode": "^5.0",
-        "google/cloud-storage": "^1.46"
+        "google/cloud-storage": "^1.46",
+        "ext-json": "*"
     },
     "autoload": {
         "files": ["app/include.php"]

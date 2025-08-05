@@ -107,10 +107,13 @@ videoButton.addEventListener('click', function (e) {
             type: 'POST',
             data: fd,
             url: root + 'app/controllers/VideoEditorController.php',
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                const parsed = JSON.parse(data);
+            // processData: false,
+            // contentType: false,
+            beforeSend: function(xhr) {
+                document.getElementById('video-loader').classList.remove('d-none');
+                document.getElementById('video-upload-button').classList.add('d-none');
+            },
+            success: function () {
                 disableLink();
                 disableZoom();
 
@@ -127,8 +130,8 @@ videoButton.addEventListener('click', function (e) {
                 video.setAttribute('height', '360');
                 video.classList.add('video-js', 'vjs-default-skin', 'w-100', 'h-400px', 'rounded');
                 const source = document.createElement('source');
-                source.setAttribute('src', root + 'app/assets/videos/' + parsed.url);
-                // source.setAttribute('src', parsed.url);
+                // source.setAttribute('src', root + 'app/assets/videos/' + parsed.url);
+                source.setAttribute('src', 'https://storage.cloud.google.com/auser-zoom-meetings/' + lesson.toString() + '/' + $('#video-fileInput')[0].files[0].name + '?authuser=2');
                 source.setAttribute('type', 'video/mp4');
 
                 video.append(source);
@@ -157,6 +160,9 @@ videoButton.addEventListener('click', function (e) {
                         player.pause();
                     }
                 });
+            },
+            complete: function() {
+                document.getElementById('video-loader').classList.add('d-none');
             }
         })
     })
@@ -807,10 +813,11 @@ function sponsorsRecapTab() {
 
 }
 function deleteVideo() {
+    const fileName = document.getElementById('video-fileName').textContent;
     $.ajax({
         type:'POST',
         url: root + 'app/controllers/LessonController.php',
-        data: {'lesson': lesson, 'action': 'deleteVideo', 'fileName': $('#video-fileName').text()},
+        data: {'lesson': lesson, 'action': 'deleteVideo', 'fileName': fileName},
         // data: {'lesson': lesson, 'action': 'deleteVideo'},
         success: function(data) {
             const video = document.getElementById('video-lesson-' + lesson);

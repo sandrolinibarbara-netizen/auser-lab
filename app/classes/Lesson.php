@@ -40,7 +40,7 @@ class Lesson extends BaseModel {
         $idLesson = $this->id;
 
         if($event) {
-            $query = "SELECT vincoli.importo, vincoli.tesseramento, vincoli.remoto, vincoli.presenza, dirette.luogo, dirette.nome as evento, dirette.argomento, dirette.descrizione, dirette.data_inizio, dirette.orario_fine, dirette.orario_inizio, dirette.posti, dirette.path_immagine_copertina as hero, dirette.privato, dirette.zoom_meeting, dirette.zoom_pw FROM dirette
+            $query = "SELECT vincoli.importo, vincoli.tesseramento, vincoli.remoto, vincoli.presenza, dirette.luogo, dirette.nome as evento, dirette.path_video, dirette.url, dirette.argomento, dirette.descrizione, dirette.data_inizio, dirette.orario_fine, dirette.orario_inizio, dirette.posti, dirette.path_immagine_copertina as hero, dirette.privato, dirette.zoom_meeting, dirette.zoom_pw FROM dirette
             JOIN vincoli ON vincoli.id_diretta = dirette.id
             WHERE dirette.id = '$idLesson'";
         } else {

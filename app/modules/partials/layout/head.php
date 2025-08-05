@@ -27,6 +27,7 @@
     <link href="<?=ROOT?>metronic/assets/plugins/custom/cookiealert/cookiealert.bundle.css" rel="stylesheet" type="text/css" />
     <link href="https://vjs.zencdn.net/8.12.0/video-js.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/videojs-markers/0.7.0/videojs.markers.min.css" rel="stylesheet">
+    <link href="<?=ROOT?>app/loader.css" rel="stylesheet" type="text/css" />
     <!--<link href="https://www.jquery-az.com/boots/css/bootstrap-colorpicker/bootstrap-colorpicker.css" rel="stylesheet">-->
     <!--<link href="'.ROOT.'metronic/assets/plugins/custom/colorpicker/bootstrap-colorpicker.css" rel="stylesheet" type="text/css" />-->
     <!--end::Global Stylesheets Bundle-->

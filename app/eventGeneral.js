@@ -25,6 +25,7 @@ const videoRemoveButton = document.getElementById('video-remove-button');
 const streamLink = document.getElementById('live-stream-link');
 const zoomMeeting = document.getElementById('zoom-meeting');
 const zoomPw = document.getElementById('zoom-pw');
+const videoBox = document.getElementById('video-box');
 const linkBox = document.getElementById('link-box');
 const zoomBox = document.getElementById('zoom-box');
 
@@ -41,7 +42,7 @@ videoButton.addEventListener('click', function (e) {
     reader.readAsDataURL($('#video-fileInput')[0].files[0]);
     reader.addEventListener('load', () => {
         const fd = {
-            'idLesson': lesson.toString(),
+            'idLesson': event.toString(),
             'action': 'uploadVideo',
             'fileName': $('#video-fileInput')[0].files[0].name,
             'blob': reader.result
@@ -56,10 +57,13 @@ videoButton.addEventListener('click', function (e) {
             type: 'POST',
             data: fd,
             url: root + 'app/controllers/VideoEditorController.php',
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                const parsed = JSON.parse(data);
+            // processData: false,
+            // contentType: false,
+            beforeSend: function(xhr) {
+                document.getElementById('video-loader').classList.remove('d-none');
+                document.getElementById('video-upload-button').classList.add('d-none');
+            },
+            success: function () {
                 disableLink();
                 disableZoom();
 
@@ -76,14 +80,17 @@ videoButton.addEventListener('click', function (e) {
                 video.setAttribute('height', '360');
                 video.classList.add('video-js', 'vjs-default-skin', 'w-100', 'h-400px', 'rounded');
                 const source = document.createElement('source');
-                source.setAttribute('src', root + 'app/assets/videos/' + parsed.url);
-                // source.setAttribute('src', parsed.url);
+                // source.setAttribute('src', root + 'app/assets/videos/' + parsed.url);
+                source.setAttribute('src', 'https://storage.cloud.google.com/auser-zoom-meetings/' + event.toString() + '/' + $('#video-fileInput')[0].files[0].name + '?authuser=2');
                 source.setAttribute('type', 'video/mp4');
 
                 video.append(source);
                 videoBox.append(video);
 
                 videoRemoveButton.classList.remove('d-none');
+            },
+            complete: function() {
+                document.getElementById('video-loader').classList.add('d-none');
             }
         })
     })
@@ -91,20 +98,38 @@ videoButton.addEventListener('click', function (e) {
 })
 videoRemoveButton.addEventListener('click', deleteVideo);
 streamLink.addEventListener('input', function(e) {
+    if(document.getElementById('video-lesson-' + event)) {
+        deleteVideo();
+    }
     disableZoom();
+    disableVideo();
+
     if(streamLink.value === '') {
+        enableVideo();
         enableZoom();
     }
 })
 zoomMeeting.addEventListener('input', function(e) {
+    if(document.getElementById('video-lesson-' + event)) {
+        deleteVideo();
+    }
     disableLink();
+    disableVideo();
+
     if(zoomMeeting.value === '' && zoomPw.value === '') {
+        enableVideo();
         enableLink();
     }
 })
 zoomPw.addEventListener('input', function(e) {
+    if(document.getElementById('video-lesson-' + event)) {
+        deleteVideo();
+    }
     disableLink();
+    disableVideo();
+
     if(zoomMeeting.value === '' && zoomPw.value === '') {
+        enableVideo();
         enableLink();
     }
 })
@@ -532,10 +557,11 @@ function readURL(input) {
     }
 }
 function deleteVideo() {
+    const fileName = document.getElementById('video-fileName').textContent;
     $.ajax({
         type:'POST',
         url: root + 'app/controllers/LessonController.php',
-        data: {'lesson': lesson, 'action': 'deleteVideo', 'fileName': $('#video-fileName').text()},
+        data: {'lesson': event, 'action': 'deleteVideo', 'fileName': fileName},
         // data: {'lesson': event, 'action': 'deleteVideo'},
         success: function(data) {
             const video = document.getElementById('video-lesson-' + event);

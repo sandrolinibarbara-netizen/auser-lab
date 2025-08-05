@@ -144,11 +144,52 @@ $.ajax({
             })
         })
 
-        if(parsed.data[0]['url']) {
+        //check se path_video ha un valore, per cui ha un video già associato, o no
+        if(parsed.data[0]['path_video'] === null && parsed.data[0]['url'] === null && parsed.data[0]['zoom_meeting'] === null) {
+            deployFileInput();
+        } else if (parsed.data[0]['path_video'] !== null) {
+
+            const videoBox = document.getElementById('uploaded-video');
+            videoBox.classList.remove('d-none');
+            const video = document.createElement('video');
+            video.setAttribute('id', 'video-lesson-' + event);
+            video.setAttribute('controls', 'controls');
+            video.setAttribute('preload', 'auto');
+            video.setAttribute('width', '640');
+            video.setAttribute('height', '360');
+            video.classList.add('video-js', 'vjs-default-skin', 'w-100', 'h-400px', 'rounded');
+            const source = document.createElement('source');
+            // source.setAttribute('src', root + 'app/assets/videos/' + parsed.data[0]['path_video']);
+            source.setAttribute('src', 'https://storage.cloud.google.com/auser-zoom-meetings/' + event + '/' + parsed.data[0]['path_video'] + '?authuser=2');
+            source.setAttribute('type', 'video/mp4');
+            const fileName = document.createElement('p');
+            fileName.setAttribute('id', 'video-fileName');
+            fileName.textContent = parsed.data[0]['path_video'];
+            fileName.classList.add('d-none');
+
+            video.append(source);
+            videoBox.append(fileName);
+            videoBox.append(video);
+
+            videoRemoveButton.classList.remove('d-none');
+
+            player = videojs('video-lesson-' + event);
+
+            disableLink();
             disableZoom();
-        }
-        if(parsed.data[0]['zoom_meeting']) {
-            disableLink()
+
+        } else if (parsed.data[0]['url'] !== null) {
+            deployFileInput();
+            $('#live-stream-link').val(parsed.data[0]['url']);
+            disableZoom();
+            disableVideo();
+
+        } else if(parsed.data[0]['zoom_meeting'] !== null) {
+            deployFileInput();
+            $('#zoom-meeting').val(parsed.data[0]['zoom_meeting']);
+            $('#zoom-pw').val(parsed.data[0]['zoom_pw']);
+            disableLink();
+            disableVideo();
         }
 
     }

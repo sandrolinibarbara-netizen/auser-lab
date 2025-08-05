@@ -28,18 +28,16 @@ class Storage extends BaseModel
             'path_video' => $objectName,
             'system_user_modified' => $user,
             ], ['id' => $idLesson]);
-
-        $this->uploadedVideo = array();
-        $this->uploadedVideo['url'] = 'https://storage.cloud.google.com/auser-zoom-meetings/' . $id.'/'.$objectName;
-
-        return $this->uploadedVideo;
     }
     function delete_object(string $objectName, string $id)
     {
         $lesson = new Lesson($id);
         $lesson->deleteVideo();
 
-        $storage = new StorageClient();
+        $config = ['projectId' => 'auser-prova', 'keyFilePath' => UPLOADDIR.'app/constants/auser-prova-681b1e691b41.json'];
+        $storage = new StorageClient($config);
+
+        $storage = new StorageClient($config);
         $bucket = $storage->bucket('auser-zoom-meetings');
         $object = $bucket->object($id.'/'.$objectName);
         $object->delete();

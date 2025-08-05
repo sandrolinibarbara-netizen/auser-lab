@@ -236,6 +236,7 @@
                                 <!--begin::Body-->
                                 <div id="genera-video" class="fs-6 p-4 d-flex align-items-center justify-content-center gap-8 flex-column" data-bs-parent="#manage-video">
                                     <div class="d-flex flex-column gap-4 d-none w-100" id="choose-video"></div>
+                                    <div class="loader d-none" id="video-loader"></div>
                                     <button type="button" class="btn btn-primary d-none" id="video-upload-button">Carica il video</button>
                                     <div id="uploaded-video" class="w-100 d-none"></div>
                                     <div class="w-100 text-end">

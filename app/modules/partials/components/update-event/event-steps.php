@@ -364,22 +364,44 @@
             <div class="flex-column" data-kt-stepper-element="content">
                 <div class="card-body">
                     <!--begin::Accordion-->
-                    <div class="accordion" id="manage-video-event">
+                    <div class="accordion" id="manage-video">
                         <!--begin::Item-->
-                        <div id="link-box" class="border-bottom border-bottom-1 border-gray-300 pb-7">
-                            <!--begin::Header-->
-                            <div class="accordion-header pt-10 pb-3 d-flex w-100 d-flex justify-content-between align-items-center">
-                                <h2 class="fw-semibold mb-0 ms-4" id="link-title">Crea link piattaforma per streaming</h2>
-                            </div>
-                            <!--end::Header-->
+                        <div class="border-bottom border-bottom-1 border-gray-300">
+                            <div id="video-box">
+                                <!--begin::Header-->
+                                <div id="video-header" class="accordion-header py-10 pe-4 d-flex w-100 d-flex justify-content-between align-items-center rounded">
+                                    <h2 id="video-title" class="fw-semibold mb-0 ms-4">Genera Video - Caricamento video registrato</h2>
+                                </div>
+                                <!--end::Header-->
 
-                            <!--begin::Body-->
-                            <div id="crea-link" class="fs-6 px-4 mt-4" data-bs-parent="#manage-video-event">
-                                <input class="w-100 form-control form-control-solid" id="live-stream-link"/>
+                                <!--begin::Body-->
+                                <div id="genera-video" class="fs-6 p-4 d-flex align-items-center justify-content-center gap-8 flex-column" data-bs-parent="#manage-video">
+                                    <div class="d-flex flex-column gap-4 d-none w-100" id="choose-video"></div>
+                                    <div class="loader d-none" id="video-loader"></div>
+                                    <button type="button" class="btn btn-primary d-none" id="video-upload-button">Carica il video</button>
+                                    <div id="uploaded-video" class="w-100 d-none"></div>
+                                    <div class="w-100 text-end">
+                                        <button type="button" class="btn btn-light-bg btn-sm d-none my-4" id="video-remove-button"><i class="ki-outline ki-trash fs-6"></i> Rimuovi il video</button>
+                                    </div>
+                                </div>
                             </div>
                             <!--end::Body-->
                         </div>
                         <!--end::Item-->
+                        <!--begin::Item-->
+                        <div id="link-box" class="border-bottom border-bottom-1 border-gray-300">
+                            <!--begin::Header-->
+                            <div id="link-header" class="accordion-header py-10 pe-4 d-flex w-100 d-flex justify-content-between align-items-center rounded">
+                                <h2 id="link-title" class="fw-semibold mb-0 ms-4">Crea link piattaforma per streaming</h2>
+                            </div>
+                            <!--end::Header-->
+
+                            <!--begin::Body-->
+                            <div id="crea-link" class="fs-6 px-4" data-bs-parent="#manage-video">
+                                <input class="w-100 form-control form-control-solid mb-7" id="live-stream-link"/>
+                            </div>
+                            <!--end::Body-->
+                        </div>
                         <div id="zoom-box">
                             <!--begin::Header-->
                             <div id="zoom-header" class="accordion-header py-10 pe-4 d-flex w-100 d-flex justify-content-between align-items-center rounded">
@@ -396,6 +418,7 @@
                             </div>
                             <!--end::Body-->
                         </div>
+                        <!--end::Item-->
                     </div>
                     <!--end::Accordion-->
                 </div>

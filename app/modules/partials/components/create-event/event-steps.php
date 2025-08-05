@@ -420,6 +420,7 @@
                                         <p id="video-fileName" class="mb-0"></p>
                                     </div>
                                 </div>
+                                <div class="loader d-none" id="video-loader"></div>
                                 <button type="button" class="btn btn-primary d-none" id="video-upload-button">Carica video</button>
 
                                 <div id="uploaded-video" class="w-100"></div>
