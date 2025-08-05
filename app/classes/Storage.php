@@ -17,7 +17,7 @@ class Storage extends BaseModel
         $bucket = $storage->bucket('auser-zoom-meetings');
         $object = $bucket->upload($file, [
         //CON IL FOLDER, IL NOME DEL FILE DIVENTA FOLDER/NAME
-            'name' => $id.'/'.$objectName,
+            'name' => $id.'-'.$objectName,
         ]);
         //AGGIUNGERE IL NOME DEL FILE AL DB
         $user = $_SESSION[SESSIONROOT]['user'];
