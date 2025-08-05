@@ -91,6 +91,7 @@ videoButton.addEventListener('click', function (e) {
     const reader = new FileReader();
     reader.readAsDataURL($('#video-fileInput')[0].files[0]);
     reader.addEventListener('load', () => {
+        const folder = { 'idLesson': lesson.toString(), 'action': 'checkFolder',}
         const fd = {
             'idLesson': lesson.toString(),
             'action': 'uploadVideo',
@@ -105,7 +106,7 @@ videoButton.addEventListener('click', function (e) {
 
         $.ajax({
             type: 'POST',
-            data: fd,
+            data: folder,
             url: root + 'app/controllers/VideoEditorController.php',
             // processData: false,
             // contentType: false,
@@ -114,53 +115,61 @@ videoButton.addEventListener('click', function (e) {
                 document.getElementById('video-upload-button').classList.add('d-none');
             },
             success: function () {
-                disableLink();
-                disableZoom();
+                $.ajax({
+                    type: 'POST',
+                    data: fd,
+                    url: root + 'app/controllers/VideoEditorController.php',
+                    // processData: false,
+                    // contentType: false,
+                    success: function () {
+                        disableLink();
+                        disableZoom();
 
-                const chooseVideo = document.getElementById('choose-video');
-                chooseVideo.classList.add('d-none');
-                videoButton.classList.add('d-none');
-                const videoBox = document.getElementById('uploaded-video');
-                videoBox.classList.remove('d-none');
-                const video = document.createElement('video');
-                video.setAttribute('id', 'video-lesson-' + lesson);
-                video.setAttribute('controls', 'controls');
-                video.setAttribute('preload', 'auto');
-                video.setAttribute('width', '640');
-                video.setAttribute('height', '360');
-                video.classList.add('video-js', 'vjs-default-skin', 'w-100', 'h-400px', 'rounded');
-                const source = document.createElement('source');
-                // source.setAttribute('src', root + 'app/assets/videos/' + parsed.url);
-                source.setAttribute('src', 'https://storage.cloud.google.com/auser-zoom-meetings/' + lesson.toString() + '/' + $('#video-fileInput')[0].files[0].name + '?authuser=2');
-                source.setAttribute('type', 'video/mp4');
+                        const chooseVideo = document.getElementById('choose-video');
+                        chooseVideo.classList.add('d-none');
+                        videoButton.classList.add('d-none');
+                        const videoBox = document.getElementById('uploaded-video');
+                        videoBox.classList.remove('d-none');
+                        const video = document.createElement('video');
+                        video.setAttribute('id', 'video-lesson-' + lesson);
+                        video.setAttribute('controls', 'controls');
+                        video.setAttribute('preload', 'auto');
+                        video.setAttribute('width', '640');
+                        video.setAttribute('height', '360');
+                        video.classList.add('video-js', 'vjs-default-skin', 'w-100', 'h-400px', 'rounded');
+                        const source = document.createElement('source');
+                        // source.setAttribute('src', root + 'app/assets/videos/' + parsed.url);
+                        source.setAttribute('src', 'https://storage.cloud.google.com/auser-zoom-meetings/' + lesson.toString() + '/' + $('#video-fileInput')[0].files[0].name + '?authuser=2');
+                        source.setAttribute('type', 'video/mp4');
 
-                video.append(source);
-                videoBox.append(video);
+                        video.append(source);
+                        videoBox.append(video);
 
-                addMarkerButton.classList.remove('d-none');
-                videoRemoveButton.classList.remove('d-none');
+                        addMarkerButton.classList.remove('d-none');
+                        videoRemoveButton.classList.remove('d-none');
 
-                player = videojs('video-lesson-' + lesson);
-                console.log(player)
-                player.on('seeked', function (event) {
-                    console.log(player.currentTime()) // get the currentTime of the video
-                    tempMarkerTime = player.currentTime();
-                    // const li = document.createElement('li');
-                    // li.classList.add('list-style-none')
-                    // const markerTime = document.createElement('p');
-                    // markerTime.textContent = currentTime;
-                    // li.append(markerTime);
-                    // list.append(li);
-                    //video.markers.add([{ time: currentTime, text: "I'm added"}]); //add markers dynamically
-                });
-                player.markers({
-                    markers: [],
-                    onMarkerReached: function (marker, index) {
-                        console.log(marker.text);
-                        player.pause();
-                    }
-                });
-            },
+                        player = videojs('video-lesson-' + lesson);
+                        console.log(player)
+                        player.on('seeked', function (event) {
+                            console.log(player.currentTime()) // get the currentTime of the video
+                            tempMarkerTime = player.currentTime();
+                            // const li = document.createElement('li');
+                            // li.classList.add('list-style-none')
+                            // const markerTime = document.createElement('p');
+                            // markerTime.textContent = currentTime;
+                            // li.append(markerTime);
+                            // list.append(li);
+                            //video.markers.add([{ time: currentTime, text: "I'm added"}]); //add markers dynamically
+                        });
+                        player.markers({
+                            markers: [],
+                            onMarkerReached: function (marker, index) {
+                                console.log(marker.text);
+                                player.pause();
+                            }
+                        });
+                    },
+                })            },
             complete: function() {
                 document.getElementById('video-loader').classList.add('d-none');
             }

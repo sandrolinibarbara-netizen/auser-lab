@@ -69,3 +69,17 @@ if(isset($_POST['action']) && $_POST['action'] === 'uploadVideo') {
 //    $result = $lesson->uploadVideo($data);
 //    echo json_encode($result);
 }
+
+if(isset($_POST['action']) && $_POST['action'] === 'checkFolder') {
+    require_once '../config/config_inc.php';
+    $getFolder = new Storage();
+    $getFolder->get_folder($_POST['idLesson']);
+//    $data = [
+//        'tmpName' => $_FILES['file']['tmp_name'],
+//        'fileName' => $_FILES['file']['name'],
+//    ];
+//
+//    $lesson = new Lesson($_POST['idLesson']);
+//    $result = $lesson->uploadVideo($data);
+//    echo json_encode($result);
+}

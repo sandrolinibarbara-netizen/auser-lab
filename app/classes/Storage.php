@@ -9,8 +9,6 @@ class Storage extends BaseModel
     private $uploadedVideo;
     function upload_object(string $objectName, string $stream, string $id)
     {
-        $this->get_folder($id);
-
         $config = ['projectId' => 'auser-prova', 'keyFilePath' => UPLOADDIR.'app/constants/auser-prova-681b1e691b41.json'];
         $storage = new StorageClient($config);
         if (!$file = fopen($stream, 'r')) {
