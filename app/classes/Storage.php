@@ -57,7 +57,7 @@ class Storage extends BaseModel
             $folder = $storageControlClient->getFolder($request);
             $result['folder'] = $folder->getName();
         } catch(Exception $e) {
-            $result['folder'] = $this->create_folder($folderName)['folder'];
+            $result['folder'] = $this->create_folder($folderName);
         }
 
         return $result;
@@ -74,14 +74,11 @@ class Storage extends BaseModel
             'folder_id' => $folderName,
         ]);
 
-        $result = array();
-
         try {
             $folder = $storageControlClient->createFolder($request);
-            $result['folder'] = $folder->getName();
+            return $folder->getName();
         } catch(Exception $e) {
             printf('Error: %s\n', $e->getMessage());
         }
-        return $result;
     }
 }
