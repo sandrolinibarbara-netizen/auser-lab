@@ -117,29 +117,9 @@ videoButton.addEventListener('click', function (e) {
                     video.append(source);
                     videoBox.append(video);
 
-                    addMarkerButton.classList.remove('d-none');
                     videoRemoveButton.classList.remove('d-none');
 
                     player = videojs('video-lesson-' + event);
-                    console.log(player)
-                    player.on('seeked', function (event) {
-                        console.log(player.currentTime()) // get the currentTime of the video
-                        tempMarkerTime = player.currentTime();
-                        // const li = document.createElement('li');
-                        // li.classList.add('list-style-none')
-                        // const markerTime = document.createElement('p');
-                        // markerTime.textContent = currentTime;
-                        // li.append(markerTime);
-                        // list.append(li);
-                        //video.markers.add([{ time: currentTime, text: "I'm added"}]); //add markers dynamically
-                    });
-                    player.markers({
-                        markers: [],
-                        onMarkerReached: function (marker, index) {
-                            console.log(marker.text);
-                            player.pause();
-                        }
-                    });
                 }
             } else {
                 // Gestione degli errori dal server
