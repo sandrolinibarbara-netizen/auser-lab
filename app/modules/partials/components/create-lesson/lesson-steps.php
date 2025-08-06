@@ -237,7 +237,7 @@
                             <div id="genera-video" class="fs-6 p-4 d-flex align-items-center justify-content-center gap-8 flex-column" data-bs-parent="#manage-video">
                                 <div class="d-flex flex-column gap-4 w-100" id="choose-video">
                                         <div class="w-100 text-start">
-                                            <p class="form-label">Scegli un video (massimo 100MB in formato mp4)</p>
+                                            <p class="form-label">Scegli un video in formato mp4</p>
                                         </div>
                                         <div class="image-input image-input-empty bg-light-bg w-100 h-150px d-flex justify-content-center align-items-center gap-4" data-kt-image-input="true">
                                             <label title="Scegli un file" data-kt-image-input-action="change" data-bs-toggle="tooltip" data-bs-dismiss="click" class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow">

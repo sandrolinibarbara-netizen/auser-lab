@@ -897,7 +897,7 @@ function deployFileInput() {
     div.classList.add('w-100', 'text-start')
     const chooseFile = document.createElement('p');
     chooseFile.classList.add('form-label');
-    chooseFile.textContent = 'Scegli un video (massimo 100MB in formato mp4)';
+    chooseFile.textContent = 'Scegli un video in formato mp4';
     const fileInput = document.createElement('div');
     fileInput.classList.add('image-input', 'image-input-empty', 'bg-light-bg', 'w-100', 'h-150px', 'd-flex', 'justify-content-center', 'align-items-center');
     fileInput.setAttribute('data-kt-image-input', 'true');
@@ -911,7 +911,7 @@ function deployFileInput() {
     label.setAttribute('data-kt-image-input-action', 'change');
     label.setAttribute('data-bs-toggle', 'tooltip');
     label.setAttribute('data-bs-dismiss', 'click');
-    label.setAttribute('title', "Scegli un video (massimo 100MB in formato mp4)");
+    label.setAttribute('title', "Scegli un video in formato mp4");
     const icon = document.createElement('i');
     icon.classList.add('ki-duotone', 'ki-pencil', 'fs-6');
     const path1 = document.createElement('span');
