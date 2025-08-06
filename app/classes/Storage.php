@@ -16,7 +16,7 @@ class Storage extends BaseModel
         $config = ['projectId' => 'auser-prova', 'keyFilePath' => UPLOADDIR.'app/constants/auser-prova-681b1e691b41.json'];
         $storage = new StorageClient($config);
 
-//        if (!$file = fopen($stream, 'r')) {
+//        if (!$file = fopen($contents, 'r')) {
 //            throw new \InvalidArgumentException('Unable to open file for reading');
 //        }
 
@@ -26,10 +26,10 @@ class Storage extends BaseModel
             'chunkSize' => 1024 * 256, // 256KB
         ]);
         $uploader = $bucket->getStreamableUploader($writeStream, [
-            'name' => $id.$objectName,
+            'name' => $id.'/'.$objectName,
         ]);
         $writeStream->setUploader($uploader);
-        $stream = fopen('data://text/plain,' . $contents, 'r');
+        $stream = fopen($contents, 'r');
         while (($line = stream_get_line($stream, 1024 * 256)) !== false) {
             $writeStream->write($line);
         }
