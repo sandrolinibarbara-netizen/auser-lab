@@ -88,36 +88,65 @@ videoRemoveButton.addEventListener('click', deleteVideo);
 videoButton.addEventListener('click', function (e) {
     e.preventDefault();
 
-    const reader = new FileReader();
-    reader.readAsDataURL($('#video-fileInput')[0].files[0]);
-    reader.addEventListener('load', () => {
-        const fd = {
-            'idLesson': lesson.toString(),
-            'action': 'uploadVideo',
-            'fileName': $('#video-fileInput')[0].files[0].name,
-            'blob': reader.result
-        }
-        // const fd = new FormData();
-        // fd.append('file', $('#video-fileInput')[0].files[0]);
-        // fd.append('idLesson', lesson);
-        // fd.append('action', 'uploadVideo');
-        // fd.append('fileName', $('#video-fileInput')[0].files[0].name);
+        const file = $('#video-fileInput')[0].files[0]; // Ottiene il file selezionato
 
-        $.ajax({
-            type: 'POST',
-            data: fd,
-            url: root + 'app/controllers/VideoEditorController.php',
-            // processData: false,
-            // contentType: false,
-            beforeSend: function(xhr) {
-                document.getElementById('video-loader').classList.remove('d-none');
-                document.getElementById('video-upload-button').classList.add('d-none');
-            },
-            success: function (data) {
+        if (!file) {
+            return;
+        }
+
+        // Dimensione di ogni chunk (10 MB). Puoi aumentarla o diminuirla.
+        // Chunk più grandi riducono il numero di richieste ma aumentano il rischio di fallimenti per timeout.
+        const chunkSize = 1024 * 256; // 256KB in byte
+
+        // Calcola il numero totale di chunk necessari
+        const totalChunks = Math.ceil(file.size / chunkSize);
+        let chunkIndex = 0; // Inizia dal primo chunk
+
+        // Funzione ricorsiva per caricare i chunk uno alla volta
+        function uploadChunk() {
+        // Calcola l'inizio e la fine del chunk corrente
+        const videoLoader = document.getElementById('video-loader');
+        const uploadButton = document.getElementById('video-upload-button');
+        const uploadProgress = document.getElementById('upload-progress');
+        if(videoLoader.classList.contains('d-none')) videoLoader.classList.remove('d-none');
+        if(uploadProgress.classList.contains('d-none')) uploadProgress.classList.remove('d-none');
+        if(!uploadButton.classList.contains('d-none')) uploadButton.classList.add('d-none');
+
+        const start = chunkIndex * chunkSize;
+        const end = Math.min(start + chunkSize, file.size);
+        const chunk = file.slice(start, end); // Estrae il chunk dal file
+        console.log(start, end, chunk);
+        // Crea un oggetto FormData per inviare i dati via POST
+        const formData = new FormData();
+        formData.append('chunk', chunk); // Il chunk del file
+        formData.append('fileName', file.name); // Nome originale del file
+        formData.append('chunkIndex', chunkIndex.toString()); // Indice del chunk corrente
+        formData.append('totalChunks', totalChunks.toString()); // Numero totale di chunk
+        formData.append('action', 'uploadVideo'); // action
+        formData.append('id', lesson.toString());
+
+        // Invia il chunk al backend PHP
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', root + 'app/controllers/VideoEditorController.php', true); // Metodo POST, URL dello script PHP, asincrono
+
+        // Gestione della risposta dal server
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            chunkIndex++; // Passa al prossimo chunk
+            console.log('Loading chunk: ', chunkIndex, totalChunks);
+            if (chunkIndex < totalChunks) {
+                const progress = (chunkIndex / (totalChunks - 1)) * 100;
+                if(chunkIndex === totalChunks - 1) {
+                    uploadProgress.textContent = 'Salvataggio su Google Cloud Storage'
+                } else {
+                    uploadProgress.textContent = 'Loading... ' + Math.trunc(progress) + '%';
+                }
+                uploadChunk(); // Chiama la funzione per caricare il prossimo chunk
+            } else {
+                videoLoader.classList.add('d-none');
+                uploadProgress.classList.add('d-none');
                 disableLink();
                 disableZoom();
-                const parsed = JSON.parse(data);
-                console.log('chunks: ', parsed);
                 const chooseVideo = document.getElementById('choose-video');
                 chooseVideo.classList.add('d-none');
                 videoButton.classList.add('d-none');
@@ -161,12 +190,23 @@ videoButton.addEventListener('click', function (e) {
                         player.pause();
                     }
                 });
-            },
-            complete: function() {
-                document.getElementById('video-loader').classList.add('d-none');
             }
-        })
-    })
+        } else {
+            // Gestione degli errori dal server
+            console.error('Server response error:', xhr.responseText);
+        }
+    };
+
+        // Gestione degli errori di rete
+        xhr.onerror = function() {
+            console.error('Network error during upload.');
+    };
+
+        // Invia la richiesta con il FormData
+        xhr.send(formData);
+    }
+
+    uploadChunk(); // Avvia il processo di caricamento
 
 })
 videoModal.addEventListener('show.bs.modal', function (e) {
@@ -202,7 +242,7 @@ videoModal.addEventListener('show.bs.modal', function (e) {
                 success: function (data) {
                     const parsed = JSON.parse(data);
                     console.log(parsed);
-                    if(parsed.data.length === 0) {
+                    if (parsed.data.length === 0) {
                         $('#modal-video-body').empty();
                         modalHeader.classList.add('d-none');
                         modalBreakPoint.classList.add('d-none');

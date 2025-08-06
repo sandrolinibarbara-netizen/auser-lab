@@ -59,7 +59,11 @@ if(isset($_POST['action']) && $_POST['action'] === 'deleteMarker') {
 if(isset($_POST['action']) && $_POST['action'] === 'uploadVideo') {
     require_once '../config/config_inc.php';
     $uploadObj = new Storage();
-    $result = $uploadObj->upload_object($_POST['fileName'], $_POST['blob'], $_POST['idLesson']);
+    $fileName = $_POST['fileName'] ?? null;
+    $id = $_POST['id'] ?? null;
+    $chunkIndex = $_POST['chunkIndex'] ?? null;
+    $totalChunks = $_POST['totalChunks'] ?? null;
+    $uploadObj->upload_object($fileName, (int)$chunkIndex, (int)$totalChunks, $id);
 //    $data = [
 //        'tmpName' => $_FILES['file']['tmp_name'],
 //        'fileName' => $_FILES['file']['name'],
@@ -67,7 +71,6 @@ if(isset($_POST['action']) && $_POST['action'] === 'uploadVideo') {
 //
 //    $lesson = new Lesson($_POST['idLesson']);
 //    $result = $lesson->uploadVideo($data);
-    echo json_encode($result);
 }
 
 if(isset($_POST['action']) && $_POST['action'] === 'checkFolder') {

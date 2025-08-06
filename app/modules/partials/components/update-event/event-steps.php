@@ -379,6 +379,7 @@
                                     <div class="d-flex flex-column gap-4 d-none w-100" id="choose-video"></div>
                                     <div class="loader d-none" id="video-loader"></div>
                                     <button type="button" class="btn btn-primary d-none" id="video-upload-button">Carica il video</button>
+                                    <p class="d-none" id="upload-progress"></p>
                                     <div id="uploaded-video" class="w-100 d-none"></div>
                                     <div class="w-100 text-end">
                                         <button type="button" class="btn btn-light-bg btn-sm d-none my-4" id="video-remove-button"><i class="ki-outline ki-trash fs-6"></i> Rimuovi il video</button>

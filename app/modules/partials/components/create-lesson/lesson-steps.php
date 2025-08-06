@@ -250,7 +250,7 @@
                                     </div>
                                 <div class="loader d-none" id="video-loader"></div>
                                 <button type="button" class="btn btn-primary d-none" id="video-upload-button">Carica video</button>
-
+                                <p class="d-none" id="upload-progress"></p>
                                 <div id="uploaded-video" class="w-100"></div>
 
                                 <div class="w-100 text-end my-4">

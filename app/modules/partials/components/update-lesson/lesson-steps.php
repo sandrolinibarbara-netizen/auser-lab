@@ -238,6 +238,7 @@
                                     <div class="d-flex flex-column gap-4 d-none w-100" id="choose-video"></div>
                                     <div class="loader d-none" id="video-loader"></div>
                                     <button type="button" class="btn btn-primary d-none" id="video-upload-button">Carica il video</button>
+                                    <p class="d-none" id="upload-progress"></p>
                                     <div id="uploaded-video" class="w-100 d-none"></div>
                                     <div class="w-100 text-end">
                                         <button id="add-marker-button" data-bs-action="add" data-bs-idMarker="" data-bs-toggle="modal" data-bs-target="#video-modal" class="btn btn-light-bg btn-sm d-none my-4"><i class="ki-outline ki-plus-square fs-6"></i> Aggiungi marker</button>
