@@ -29,9 +29,11 @@ class Storage extends BaseModel
             'name' => $id.'/'.$objectName,
         ]);
         $writeStream->setUploader($uploader);
+        $result = array();
         $stream = fopen($contents, 'r');
         while (($line = stream_get_line($stream, 1024 * 256)) !== false) {
             $writeStream->write($line);
+            $result[] = $line;
         }
         $writeStream->close();
 
@@ -46,6 +48,8 @@ class Storage extends BaseModel
             'path_video' => $objectName,
             'system_user_modified' => $user,
             ], ['id' => $idLesson]);
+
+        return $result;
     }
     function delete_object(string $objectName, string $id)
     {

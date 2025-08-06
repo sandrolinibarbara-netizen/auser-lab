@@ -113,10 +113,11 @@ videoButton.addEventListener('click', function (e) {
                 document.getElementById('video-loader').classList.remove('d-none');
                 document.getElementById('video-upload-button').classList.add('d-none');
             },
-            success: function () {
+            success: function (data) {
                 disableLink();
                 disableZoom();
-
+                const parsed = JSON.parse(data);
+                console.log('chunks: ', parsed);
                 const chooseVideo = document.getElementById('choose-video');
                 chooseVideo.classList.add('d-none');
                 videoButton.classList.add('d-none');
