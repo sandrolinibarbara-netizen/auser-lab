@@ -4,23 +4,41 @@ use Google\Cloud\Storage\StorageClient;
 use Google\Cloud\Storage\Control\V2\Client\StorageControlClient;
 use Google\Cloud\Storage\Control\V2\CreateFolderRequest;
 use Google\Cloud\Storage\Control\V2\GetFolderRequest;
+use Google\Cloud\Storage\WriteStream;
+
 class Storage extends BaseModel
 {
     private $uploadedVideo;
-    function upload_object(string $objectName, string $stream, string $id)
+    function upload_object(string $objectName, string $contents, string $id)
     {
         $this->get_folder($id);
 
         $config = ['projectId' => 'auser-prova', 'keyFilePath' => UPLOADDIR.'app/constants/auser-prova-681b1e691b41.json'];
         $storage = new StorageClient($config);
-        if (!$file = fopen($stream, 'r')) {
-            throw new \InvalidArgumentException('Unable to open file for reading');
-        }
+
+//        if (!$file = fopen($stream, 'r')) {
+//            throw new \InvalidArgumentException('Unable to open file for reading');
+//        }
+
         $bucket = $storage->bucket('auser-zoom-meetings');
-        $object = $bucket->upload($file, [
-        //CON IL FOLDER, IL NOME DEL FILE DIVENTA FOLDER/NAME
+
+        $writeStream = new WriteStream(null, [
+            'chunkSize' => 1024 * 256, // 256KB
+        ]);
+        $uploader = $bucket->getStreamableUploader($writeStream, [
             'name' => $id.'/'.$objectName,
         ]);
+        $writeStream->setUploader($uploader);
+        $stream = fopen('data://text/plain,' . $contents, 'r');
+        while (($line = stream_get_line($stream, 1024 * 256)) !== false) {
+            $writeStream->write($line);
+        }
+        $writeStream->close();
+
+//        $object = $bucket->upload($file, [
+//        //CON IL FOLDER, IL NOME DEL FILE DIVENTA FOLDER/NAME
+//            'name' => $id.'/'.$objectName,
+//        ]);
         //AGGIUNGERE IL NOME DEL FILE AL DB
         $user = $_SESSION[SESSIONROOT]['user'];
         $idLesson = $id;
