@@ -26,7 +26,7 @@ class Storage extends BaseModel
             'chunkSize' => 1024 * 256, // 256KB
         ]);
         $uploader = $bucket->getStreamableUploader($writeStream, [
-            'name' => $id.'/'.$objectName,
+            'name' => $id.$objectName,
         ]);
         $writeStream->setUploader($uploader);
         $stream = fopen('data://text/plain,' . $contents, 'r');
