@@ -50,18 +50,18 @@ function isDisabled($parsed, $type) {
     }
 }
 
-function getVimeoIds($url) {
-    $arr = explode('/', $url);
-    $ids = array();
-    $ids[] = $arr[count($arr) - 2];
-    $ids[] = $arr[count($arr) - 1];
-    return $ids;
-}
-
-if($parsed['lezione'][0]['url'] !== NULL) {
-    $vimeoIds = getVimeoIds($parsed['lezione'][0]['url']);
-    $url = 'https://vimeo.com/event/' . $vimeoIds[0] . '/embed/' . $vimeoIds[1] . '/interaction';
-}
+//function getVimeoIds($url) {
+//    $arr = explode('/', $url);
+//    $ids = array();
+//    $ids[] = $arr[count($arr) - 2];
+//    $ids[] = $arr[count($arr) - 1];
+//    return $ids;
+//}
+//
+//if($parsed['lezione'][0]['url'] !== NULL) {
+//    $vimeoIds = getVimeoIds($parsed['lezione'][0]['url']);
+//    $url = 'https://vimeo.com/event/' . $vimeoIds[0] . '/embed/' . $vimeoIds[1] . '/interaction';
+//}
 
 ?>
 
@@ -70,7 +70,7 @@ if($parsed['lezione'][0]['url'] !== NULL) {
         <h2 class="fs-4 rightFont"><?=$parsed['lezione'][0]['nome']?></h2>
     </header>
     <?php if($parsed['lezione'][0]['url'] !== NULL):?>
-        <iframe src="<?= $url ?>" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" class="w-75 h-500px rounded"></iframe>
+        <iframe src="<?= $parsed['lezione'][0]['url'] ?>" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" class="w-75 h-500px rounded"></iframe>
     <?php elseif($parsed['lezione'][0]['zoom_meeting'] !== NULL) :?>
         <div id="wait-meeting" class="w-75 h-500px rounded bg-auser d-flex flex-column gap-8 align-items-center justify-content-center position-relative rightFont" style="z-index: 1500">
             <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="w-50"/>

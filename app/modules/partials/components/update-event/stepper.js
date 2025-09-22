@@ -160,7 +160,7 @@ $.ajax({
             video.classList.add('video-js', 'vjs-default-skin', 'w-100', 'h-400px', 'rounded');
             const source = document.createElement('source');
             // source.setAttribute('src', root + 'app/assets/videos/' + parsed.data[0]['path_video']);
-            source.setAttribute('src', 'https://storage.cloud.google.com/auser-zoom-meetings/' + event + '/' + parsed.data[0]['path_video'] + '?authuser=2');
+            source.setAttribute('src', 'https://storage.googleapis.com/auser-zoom-meetings/' + event + '/' + parsed.data[0]['path_video']);
             source.setAttribute('type', 'video/mp4');
             const fileName = document.createElement('p');
             fileName.setAttribute('id', 'video-fileName');

@@ -111,7 +111,7 @@ videoButton.addEventListener('click', function (e) {
                     video.classList.add('video-js', 'vjs-default-skin', 'w-100', 'h-400px', 'rounded');
                     const source = document.createElement('source');
                     // source.setAttribute('src', root + 'app/assets/videos/' + parsed.url);
-                    source.setAttribute('src', 'https://storage.cloud.google.com/auser-zoom-meetings/' + event.toString() + '/' + $('#video-fileInput')[0].files[0].name + '?authuser=2');
+                    source.setAttribute('src', 'https://storage.googleapis.com/auser-zoom-meetings' + event.toString() + '/' + $('#video-fileInput')[0].files[0].name);
                     source.setAttribute('type', 'video/mp4');
 
                     video.append(source);

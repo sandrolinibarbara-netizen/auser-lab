@@ -563,7 +563,7 @@ LEFT JOIN speakers_dirette ON speakers_dirette.id_speaker = speakers.id GROUP BY
 
         $_SESSION[SESSIONROOT]['link'] = array();
         $_SESSION[SESSIONROOT]['link']['id_diretta'] = $idLesson;
-        $_SESSION[SESSIONROOT]['link']['path'] = $link;
+        $_SESSION[SESSIONROOT]['link']['path'] = str_replace('"', '', $link);;
 
         $_SESSION[SESSIONROOT]['zoom']['id_diretta'] = $idLesson;
         $_SESSION[SESSIONROOT]['zoom']['meeting'] = $zoomMeeting;

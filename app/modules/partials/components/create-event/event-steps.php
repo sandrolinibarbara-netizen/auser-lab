@@ -435,7 +435,7 @@
                         <div id="link-box" class="border-bottom border-bottom-1 border-gray-300 pb-7">
                             <!--begin::Header-->
                             <div class="accordion-header pt-10 pb-3 d-flex w-100 d-flex justify-content-between align-items-center">
-                                <h2 class="fw-semibold mb-0 ms-4" id="link-title">Crea link piattaforma per streaming</h2>
+                                <h2 class="fw-semibold mb-0 ms-4" id="link-title">Link Youtube</h2>
                             </div>
                             <!--end::Header-->
 
