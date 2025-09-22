@@ -56,8 +56,12 @@ class Email extends PHPMailer {
                     } elseif($purchase) {
                         $subject = "Grazie per l'acquisto!";
                     } elseif($newCard) {
-                        $subject = "Verifica tessera | Auser Unipop";
-                    }else {
+                        if($infos['adminSbj']) {
+                            $subject = $infos['adminSbj'];
+                        } else {
+                            $subject = "Verifica tessera | Auser Unipop";
+                        }
+                    } else {
                         $subject = $userName . ' ti ha fatto una domanda!';
                         $this->addReplyTo($userEmail, $userName);
                     }

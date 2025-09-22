@@ -792,6 +792,7 @@ class User extends BaseModel
         $user = $this->id;
         $courses = array();
         $events = array();
+        $adminEmailMsg = '';
 
         foreach($_SESSION[SESSIONROOT]['cart'][$user] as $item) {
             $itemType = explode('-', $item)[0];
@@ -805,23 +806,68 @@ class User extends BaseModel
         }
 
         if(count($courses) > 0) {
+            if(count($courses) > 1) {
+                $adminEmailMsg .= 'i corsi ';
+            } else {
+                $adminEmailMsg .= 'il corso ';
+            }
             $this->updateCourses($courses, $active, true);
+            foreach($courses as $i => $cId) {
+                $cn = new Course($cId);
+                $adminEmailMsg .= $cn->nome;
+                if(count($courses) > 1 && ($i == count($courses) - 2)) {
+                    $adminEmailMsg .= ' e ';
+                } else if(count($courses) > 1 && ($i < count($courses) - 2)) {
+                    $adminEmailMsg .= ', ';
+                }
+            }
         }
 
         if(count($events) > 0) {
+            if(count($courses) > 0) {
+                $adminEmailMsg .= ' e ';
+            }
+            if(count($events) > 1) {
+                $adminEmailMsg .= 'gli eventi ';
+            } else {
+                $adminEmailMsg .= 'l\'evento ';
+            }
             $this->updateEvents($events, $active, true);
+            foreach($events as $e => $eId) {
+                $en = new Lesson($eId);
+                $adminEmailMsg .= $en->nome;
+                if(count($events) > 1 && ($e == count($events) - 2)) {
+                    $adminEmailMsg .= ' e ';
+                } else if(count($events) > 1 && ($e < count($events) - 2)) {
+                    $adminEmailMsg .= ', ';
+                }
+            }
         }
 
+        $adminEmailMsg .= '.';
+
         $message = $active == 1
-            ? 'Grazie per acquistato presso la piattaforma Auser UniPop!<br/>
+            ? 'Grazie per aver acquistato presso la piattaforma Auser UniPop!<br/>
                 I corsi e gli eventi che hai acquistato sono già disponibili nella tua Area Riservata.<br/>
                 A presto e buon apprendimento!'
-            : 'Grazie per acquistato presso la piattaforma Auser UniPop!<br/>
+            : 'Grazie per aver acquistato presso la piattaforma Auser UniPop!<br/>
                 Ricordati di effettuare il bonifico. I corsi e gli eventi che hai acquistato saranno disponibili nella tua Area Riservata solo dopo aver effettuato il bonifico.<br/>
                 A presto e buon apprendimento!';
 
         $email = new Email();
-        $email->sendEmail(['receiverEmail' => $this->email, 'userMessage' => $message], false, false, true);
+        $data = [
+//          'receiverEmail' => 'unipop.cremona@auser.lombardia.it',
+            'receiverEmail' => 'barbara.sandrolini@gmail.com',
+            'adminSbj' => 'Nuovo acquisto su Auser Lab'
+        ];
+        if($active == 1) {
+            $data['userMessage'] = $this->nome.' '.$this->cognome.' ha acquistato '.$adminEmailMsg;
+        } else if($active == 2) {
+            $data['userMessage'] = $this->nome.' '.$this->cognome.' ha acquistato '.$adminEmailMsg.' È stato selezionato il pagamento tramite bonifico bancario, per cui ricordati di controllare l\'effettivo versamento della quota.';
+        }
+        $email->sendEmail($data, false, false, false, true);
+        $emailTwo = new Email();
+        $emailTwo->sendEmail(['receiverEmail' => $this->email, 'userMessage' => $message], false, false, true);
 
         unset($_SESSION[SESSIONROOT]['cart'][$user]);
     }
