@@ -19,15 +19,22 @@ loadPartial('layout/header-ecommerce');
         <a href="<?=ROOT?>home?show=ecommerce">&larr; Torna allo shop</a>
     </div>
         <div class="card w-75 mx-auto my-7 py-2 px-4">
-        <?php foreach($data['courses'] as $item) :?>
+        <?php foreach($data['courses'] as $item) :
+            $isOndemandCourse = isset($item['data_inizio']) && $item['data_inizio'] === '01/01/3000';
+            $courseHasEndDate = isset($item['data_fine']) && $item['data_fine'] !== '01/01/3000';
+        ?>
             <div class="w-100 bg-gray-200 my-2 rounded">
                 <div class="d-flex align-items-center justify-content-between gap-8" style="width: 95%">
                     <div class="d-flex align-items-center gap-8">
                         <img class="rounded w-150px h-100px" style="object-fit: cover; object-position: center" alt="course-image" src="<?=ROOT.'app/assets/uploaded-files/heros-images/Wavy_Edu-02_Single-01.jpg'?>"/>
                         <div>
                             <p class="fs-4 fw-semibold mb-0"><?= $item['corso'] ?></p>
-                            <p class="fs-6 fw-semibold mb-0">Inizio corso: <?= $item['data_inizio'] ?></p>
-                            <p class="fs-6 fw-semibold mb-0">Fine corso: <?= $item['data_fine'] ?></p>
+                            <?php if(!$isOndemandCourse): ?>
+                                <p class="fs-6 fw-semibold mb-0">Inizio corso: <?= $item['data_inizio'] ?></p>
+                                <?php if($courseHasEndDate): ?>
+                                    <p class="fs-6 fw-semibold mb-0">Fine corso: <?= $item['data_fine'] ?></p>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-8">
@@ -37,15 +44,21 @@ loadPartial('layout/header-ecommerce');
                 </div>
             </div>
                 <?php endforeach;?>
-            <?php foreach($data['events'] as $item) :?>
+            <?php foreach($data['events'] as $item) :
+                $isOndemandEvent = isset($item['data_inizio']) && $item['data_inizio'] === '01/01/3000';
+            ?>
                 <div class="w-100 bg-gray-200 my-2 rounded">
                     <div class="d-flex align-items-center justify-content-between gap-8" style="width: 95%">
                         <div class="d-flex align-items-center gap-8">
                             <img class="rounded w-150px h-100px" style="object-fit: cover; object-position: center" alt="course-image" src="<?=ROOT.'app/assets/uploaded-files/heros-images/Wavy_Edu-02_Single-01.jpg'?>"/>
                             <div>
                                 <p class="fs-4 fw-semibold mb-0"><?= $item['diretta'] ?></p>
-                                <p class="fs-6 fw-semibold mb-0">Inizio corso: <?= $item['data_inizio'] ?></p>
-                                <p class="fs-6 fw-semibold mb-0">Orario: <?= $item['orario_inizio'].'-'.$item['orario_fine'] ?></p>
+                                <?php if(!$isOndemandEvent): ?>
+                                    <p class="fs-6 fw-semibold mb-0">Inizio corso: <?= $item['data_inizio'] ?></p>
+                                    <?php if(!empty($item['orario_inizio']) || !empty($item['orario_fine'])): ?>
+                                        <p class="fs-6 fw-semibold mb-0">Orario: <?= $item['orario_inizio'].'-'.$item['orario_fine'] ?></p>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-8">
