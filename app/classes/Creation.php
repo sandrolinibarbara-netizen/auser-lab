@@ -555,7 +555,7 @@ class Creation extends BaseModel
             if($tessera != '') {
                 $data = [
 //                    'receiverEmail' => 'unipop.cremona@auser.lombardia.it',
-                    'receiverEmail' => 'barbara.sandrolini@gmail.com',
+                    'receiverEmail' => 'segreteria@auserlabcr.it',
                     'userMessage' => '<p>Ehi Auser!<br/>Un tesserato Auser si è iscritto alla piattaforma Auser UniPop. Il numero di tessera da controllare è <strong>'.$tessera.'</strong></p>'
 
                 ];

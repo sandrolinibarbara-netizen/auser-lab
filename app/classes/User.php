@@ -857,7 +857,7 @@ class User extends BaseModel
         $email = new Email();
         $data = [
 //          'receiverEmail' => 'unipop.cremona@auser.lombardia.it',
-            'receiverEmail' => 'barbara.sandrolini@gmail.com',
+            'receiverEmail' => 'segreteria@auserlabcr.it',
             'adminSbj' => 'Nuovo acquisto su Auser Lab'
         ];
         if($active == 1) {
