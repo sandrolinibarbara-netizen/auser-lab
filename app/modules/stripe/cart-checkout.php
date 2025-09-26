@@ -55,8 +55,11 @@ loadPartial('layout/header-ecommerce');
                                 <p class="fs-4 fw-semibold mb-0"><?= $item['diretta'] ?></p>
                                 <?php if(!$isOndemandEvent): ?>
                                     <p class="fs-6 fw-semibold mb-0">Inizio corso: <?= $item['data_inizio'] ?></p>
+
+                                    <?php if(!empty($item['orario_inizio']) || !empty($item['orario_fine'])): ?>
+                                        <p class="fs-6 fw-semibold mb-0">Orario: <?= $item['orario_inizio'].'-'.$item['orario_fine'] ?></p>
+                                    <?php endif; ?>
                                 <?php endif; ?>
-                                <p class="fs-6 fw-semibold mb-0">Orario: <?= $item['orario_inizio'].'-'.$item['orario_fine'] ?></p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-8">
