@@ -152,8 +152,8 @@ File che mappa i nomi delle tabelle utilizzati dai modelli Medoo, semplificando 
 
 ### app / controllers
 Lontani dall'avere l'aspetto di controller normali, sono un compromesso tra il progetto su cui Auser Lab è basato e la necessità di un livello aggiuntivo di sicurezza e organizzazione del codice.\
-All'interno di ogni controller viene determinata la classe di cui creare un'istanza e invocare una funzione, per poi ritornare alla view il suo esito (siano essi dati, il successo della chiamata o il suo fallimento). La determinazione della classe di cui creare un'istanza dipende dalla soddisfazione di alcune condizioni:
-* nel caso al controller si sia reindirizzati dal file `.htaccess`, all'interno del controller viene effettuato un check sui query parameters dell'url contenuti in `$_GET`
+All'interno di ogni controller viene determinata la classe di cui creare un'istanza e invocare una funzione. La determinazione della classe di cui creare un'istanza dipende dalla soddisfazione di alcune condizioni:
+* nel caso al controller si sia reindirizzati dal file `.htaccess`, all'interno del controller viene effettuato un check sui query parameters dell'url contenuti in `$_GET`. In questi casi, vengono recuperati dati utilizzati per caricare le view relative
 ```
 if(isset($_GET['update']) && $_GET['update'] == 'category') {
 
@@ -166,7 +166,7 @@ if(isset($_GET['update']) && $_GET['update'] == 'category') {
     
 }
 ```
-* nel caso al controller si sia indirizzati da una chiamata ajax, all'interno del controller viene effettuato un check sul contenuto di `$_POST`
+* nel caso al controller si sia indirizzati da una chiamata ajax, all'interno del controller viene effettuato un check sul contenuto di `$_POST`, in particolare sulla proprietà `action`. In questi casi, vengono recuperati dati che poi vengono restituiti sotto forma di JSON al componente Javascript che ha effettuato la chiamata ajax
 ```
 if(isset($_POST['action']) && $_POST['action'] === 'getAssociatedCategories') {
 
@@ -179,6 +179,9 @@ if(isset($_POST['action']) && $_POST['action'] === 'getAssociatedCategories') {
     
 }
 ```
+Le funzioni invocate hanno due compiti principali, che possono essere anche svolti entrambi:
+- modificare tabelle del database (creazione, modifica ed eliminazione di righe)
+- recuperare informazioni dal database (incluse righe appena modificate)
 #### app / controllers / temp_chunks
 Cartella per il salvataggio temporaneo dei diversi chunks in cui viene suddiviso un video prima di essere caricato su Google Cloud Storage.
 
@@ -210,51 +213,50 @@ File per la gestione del routing. A seconda dell'url, il reindirizzamento avvien
 ### index.php
 File di avvio del bootstrap che forza l'inclusione della configurazione di sessione.
 
-[//]: # (Da controllare)
-
 ## Architettura runtime
-1. **Bootstrap** – Ogni richiesta passa da `index.php`, che abilita error reporting e include `config_inc.php`. Quest'ultimo verifica la sessione, istanzia `Database` (quindi Medoo) e reindirizza gli utenti non autenticati al modulo di login.
-2. **Routing controller** – I file in `app/controllers/` rispondono a parametri `GET`/`POST` (tipicamente `action`) per orchestrare le operazioni sui modelli e restituire output JSON o caricare viste dedicate. Ad esempio `CourseController.php` gestisce la pubblicazione di bozze, la creazione di lezioni, la generazione del registro e l'esportazione in Excel.
-3. **Caricamento viste** – Gli helper `loadPartial`, `loadView` e `loadSubView` permettono di comporre l'interfaccia suddividendo layout Metronic, componenti riutilizzabili e viste contestuali. Ciò facilita la separazione tra template e logica di business.
-4. **Endpoint AJAX** – Gli script in `db-calls/` alimentano DataTables e widget front-end: estraggono parametri di filtraggio/paginazione, costruiscono query dinamiche e restituiscono JSON già formattato (icone incluse).
+1. **Bootstrap** – Ogni richiesta passa da `index.php`, che abilita l'error reporting.
+2. **Routing** – Il routing è gestito da `.htaccess`, che a seconda dell'url effettua un reindirizzamento verso una pagina o verso un controller. Nel caso la pagina sia privata, viene incluso `config_inc.php`, che verifica la sessione e reindirizza gli utenti non autenticati al modulo di login. Nel caso la pagina sia pubblica, viene incluso solamente `vendor/autoload.php`.
+3. **Endpoint** – Le chiamate agli endpoint, in un primo momento radunate nella cartella `db-calls`, sono ora smistati nelle diverse classi.
+4. **Caricamento views** – Per facilitare la separazione dei componenti UI dalla logica, si è implementato un sistema di elementi componibili e riutilizzabili. Gli helper `loadPartial` e `loadView` caricano le diverse parti del layout oltre ai componenti specifici delle diverse pagine.
 
 ## Funzionalità principali
-### Autenticazione e gestione sessioni
-* Il login utilizza credenziali cifrate (`cryptStr`) salvate nel database e convalida token con scadenza configurabile (`SESSIONDURATION`). In caso di successo vengono aggiornati i timestamp della sessione e salvate informazioni aggiuntive (es. scadenza tessera).【F:app/classes/Database.php†L69-L106】
-* La pagina `app/modules/login/login.php` offre il form di accesso Metronic e link al recupero password/registrazione. Gli script front-end associati gestiscono la validazione client-side.【F:app/modules/login/login.php†L1-L87】
+### Autenticazione, gestione sessioni e permessi
+* Il login utilizza credenziali cifrate tramite la funzione `cryptStr` in `helpers.php`, e convalida token con scadenza configurabile (`SESSIONDURATION`). In caso di successo vengono aggiornati i timestamp della sessione e salvate informazioni aggiuntive (es. scadenza tessera).
+* Nella pagina `app/modules/login/login.php` si trova il componente Metronic della form di accesso e il link al recupero password/registrazione. Gli script front-end associati gestiscono la validazione client-side.
+* Sono stati creati tre ruoli, a cui sono associati diversi permessi: admin, insegnante e studente.
+### Visualizzazione e gestione di corsi ed eventi
+La visualizzazione di corsi ed eventi avviene nelle sezioni `Dashboard`, con calendario e tabelle delle prossime iniziative, e `Corsi ed eventi`. A parte il calendario, uguale per tutti i tipi di utenti, le altre tabelle mostrano, per studenti e insegnanti, solamente le iniziative a cui questi sono iscritti, mentre agli admin mostrano tutte le iniziative pubblicate.
+La gestione di corsi ed eventi è **riservata a insegnanti e admin**.
+* La classe `Course` prevede:
+  * il recupero dei dati dei corsi, sia in versione integrale che in versione ridotta, per la visualizzazione nell'ecommerce e nella dashboard;
+  * il recupero dei dati dei corsi, sia in bozza che già pubblicati, per la loro modifica;
+  * la modifica, duplicazione ed eliminazione di corsi pubblici e privati, in diretta od on demand;
+  * la creazione delle lezioni associate a quel corso e il recupero della lista delle bozze di quelle non ancora pubblicate;
+  * l'invito degli studenti ai corsi privati;
+  * la creazione dei registri presenze basati sulle presenze degli studenti iscritti a un determinato corso e sul numero totale di lezioni previste per quel corso. Non esiste una classe Register.php;
+  * la creazione dei forum associati ai corsi;
+  * la creazione dei thread associati ai forum dei corsi.
+* La classe `Lesson` gestisce le dirette. **Sono dirette sono sia le lezioni dei corsi, sia gli eventi**. La classe prevede: 
+  * il recupero dei dati delle dirette, sia in versione integrale che in versione ridotta, per la visualizzazione nell'ecommerce (solo per gli eventi) e nella dashboard;
+  * il recupero delle dirette, sia in bozza che già pubblicate, per la modifica;
+  * la modifica ed eliminazione delle dirette;
+  * il recupero e la modifica della lista di materiali (quiz e dispense), relatori e partner associati alle dirette;
+  * il recupero della lista di marker assegnati all'eventuale video associato a una diretta.
 
-### Gestione corsi ed eventi
-* La classe `Course` centralizza registri presenze, bozze e versioni e-commerce dei corsi, oltre a forum, duplicazione e abilitazione di studenti privati.【F:app/classes/Course.php†L1-L199】
-* Le viste in `app/modules/courses-events/` forniscono dashboard per creare nuovi corsi/eventi, visualizzare bozze e accedere alle tabelle DataTables, alimentate dagli endpoint `db-calls`.【F:app/modules/courses-events/index.php†L1-L75】【F:db-calls/DONE-courses/DONE-function-courses.php†L1-L115】
-* Gli eventi live sono modellati da `Lesson`, che offre recupero dei dati per bozze, gestione sponsor/materiali, disponibilità posti e versione e-commerce (inclusa verifica tesseramento e modalità fruizione).【F:app/classes/Lesson.php†L1-L200】
+### Materiali, compiti e sondaggi
+- È stata effettuata una divisione tra materiali (dispense, quiz e sondaggi che gli studenti devono da compilare durante le dirette) e compiti (dispense e quiz da consultare e compilare tra le dirette).
+- Nel caso in cui la lezione preveda la visualizzazione di un video caricato, a questo possono essere aggiunti dei marker con associati quiz da compilare o dispense da consultare.
+- Agli studenti che partecipano in presenza viene data la possibilità di visualizzare e compilare i quiz associati a una lezione tramite inquadramento di un QR code. Per compilare i quiz dovranno comunque effettuare l'accesso al loro account.
+- Materiali, compiti e sondaggi possono essere aggiunti da insegnanti e admin durante la creazione delle lezioni.
 
-### Dirette, learning experience e interazione
-* `LiveController` espone endpoint per caricare pagine di streaming, inviare materiali live (dispense, sondaggi, survey) e raccogliere risposte o marker temporali, oltre a inoltrare domande via email ai docenti.【F:app/controllers/LiveController.php†L1-L67】
-* La classe `Lesson` gestisce la trasformazione di eventi in offerte e-commerce, calcolando durata, modalità (remoto/presenza), disponibilità posti e verifica iscrizione dell'utente.【F:app/classes/Lesson.php†L69-L160】
+### Gestione permessi e utenti
+- Gli admin possono gestire gli accessi alle diverse pagine della piattaforma (`Utenti > Permessi`);
+- Gli admin inoltre possono effettuare tutte le operazione di gestione utente dalla pagina `Utenti > Iscritti`, in particolare:
+  - confermare o invalidare l'avvenuto pagamento delle quote di iscrizione ai corsi e agli eventi tramite bonifico;
+  - raccogliere e visualizzare le liberatorie e i documenti necessari al tesseramento;
+  - confermare o invalidare i tesseramenti;
+  - visualizzare gli storici dei tesseramenti e dei pagamenti delle quote di iscrizione ai corsi e agli eventi.
 
-### Materiali, registri e attestati
-* `Course::getRegister` aggrega presenze per generare tabelle DataTables e offre pulsanti azione contestuali (modifica, commenti, consegna elaborati).【F:app/classes/Course.php†L22-L109】
-* Il modulo `app/modules/certificates/pdf.php` usa TCPDF per produrre attestati personalizzati con layout grafico e dati del corso/partecipante.【F:app/modules/certificates/pdf.php†L1-L110】
-
-### Sondaggi e quiz
-* `Poll` e `Survey` consentono di creare, duplicare, pubblicare e distribuire questionari live e asincroni, con supporto a diverse tipologie di domanda e raccolta risposte. Durante una diretta, gli utenti possono inviare risposte che vengono marcate come completate.【F:app/classes/Poll.php†L1-L189】【F:app/classes/Survey.php†L1-L155】【F:app/controllers/LiveController.php†L17-L48】
-
-### Comunicazioni e notifiche
-* La classe `Email` estende PHPMailer, configurandosi tramite le costanti SMTP e fornendo metodi per inviare email puntuali (es. domande a docenti) o massive (inviti a corsi/eventi).【F:app/classes/Email.php†L1-L124】【F:app/constants/system.php†L53-L71】
-
-### E-commerce, carrello e pagamenti
-* `Ecommerce` gestisce catalogo corsi/eventi pubblici e on-demand, compone card informative (prezzo, insegnanti, modalità), mantiene il carrello in sessione con timer e aggiorna iscrizioni temporanee/finali per corsi gratuiti.【F:app/classes/Ecommerce.php†L1-L302】
-* La vista `app/modules/ecommerce/index.php` mostra il catalogo filtrabile lato utente e attiva gli script JavaScript di ricerca e caricamento asincrono.【F:app/modules/ecommerce/index.php†L1-L66】
-* Il checkout Stripe crea sessioni di pagamento dalla selezione nel carrello, differenziando corsi ed eventi e reindirizzando alle pagine di successo o annullamento.【F:app/modules/stripe/checkout.php†L1-L47】
-
-## Buone pratiche e manutenzione
-* **Sicurezza** – Non committare credenziali reali: sostituire i valori in `app/constants/system.php` con variabili d'ambiente o file esclusi dal VCS. Valutare l'uso di HTTPS e aggiornare le chiavi AES/IV se si modifica la logica di cifratura.【F:app/constants/system.php†L3-L75】【F:app/helpers.php†L51-L70】
-* **Pulizia del carrello** – Il carrello è basato su sessione e viene ripulito quando scade il timer (`CARTDURATION`) sia lato front-end (inizializzazione in `app/modules/ecommerce/index.php`) sia lato server (`Ecommerce::removeTemp`). Pianificare cron job che invochino periodicamente il metodo `removeTemp` per liberare prenotazioni scadute.【F:app/modules/ecommerce/index.php†L1-L33】【F:app/classes/Ecommerce.php†L218-L302】
-* **Estensione delle viste** – Utilizzare gli helper `loadPartial`/`loadView` per mantenere riutilizzabili layout e componenti, seguendo la struttura Metronic già presente. Evitare inclusioni dirette fuori da questi metodi per preservare l'organizzazione esistente.【F:app/helpers.php†L180-L200】
-* **Nuovi endpoint** – Seguire la convenzione degli script `db-calls` (validazione input, costruzione query parametrizzate, restituzione di JSON `draw`/`recordsTotal`) per mantenere coerente l'integrazione con DataTables.【F:db-calls/DONE-courses/DONE-function-courses.php†L1-L115】
-
-## Risorse aggiuntive
-* **Strumenti di sviluppo** – i task Gulp disponibili (`npm run build`, `npm run watch`, `npm run localhost`) sono definiti in `tools/gulpfile.js` e relativi moduli. Utilizzarli per compilare asset e avviare un server di sviluppo con ricarica automatica.【F:tools/gulpfile.js†L1-L31】
-* **Template Metronic** – consultare la directory `metronic/` per esempi di componenti, pagine e configurazioni già pronte che possono essere riutilizzate o adattate.【1d80d8†L1-L3】
-
-Questa documentazione fornisce una visione complessiva del progetto e delle sue principali responsabilità. Per funzionalità non coperte (es. forum, gestione sponsor, materiali avanzati) consultare i rispettivi modelli/controller in `app/classes` e `app/controllers`, seguendo le convenzioni illustrate.
+### E-commerce
+- Le pagine dell'ecommerce sono pubbliche.
+- Per poter acquistare un corso o partecipare a un evento, anche nel caso questi siano gratuiti e non richiedano tesseramento, **all'utente è richiesto di essere iscritto alla piattaforma**.

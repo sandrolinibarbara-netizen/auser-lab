@@ -2,7 +2,7 @@
     <div class="w-100 mx-10">
         <div class="py-4 d-flex gap-8 align-items-center mt-8 justify-content-between" style="height: fit-content">
             <div>
-                <a href="<?=ROOT?>home?show=ecommerce">
+                <a href="<?=ROOT?>home?show=ecommerce" class="text-decoration-none">
                     <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="w-250px app-sidebar-logo-default" />
                 </a>
                 <a href="https://www.ausercomprensoriodicremona.it/"
