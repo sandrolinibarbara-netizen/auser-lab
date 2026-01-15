@@ -36,7 +36,9 @@
 
         if(isset($_GET['live']) && $_GET['live'] == 'fill-poll') {
             header("Location: " . ROOT . "login?live=fill-poll&id=" . $_GET['id']);
+        } else if(isset($_GET['id'])) {
+            header("Location: " . ROOT ."login");
         } else {
-            header("Location: " . ROOT . "login");
+            header("Location: " . ROOT . "welcome");
         }
     }

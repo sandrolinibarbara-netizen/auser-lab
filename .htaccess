@@ -3,6 +3,7 @@ RewriteEngine On
 
 RewriteRule ^home/shop app/controllers/EcommerceController.php
 RewriteRule ^home  app/controllers/EcommerceController.php
+RewriteRule ^welcome app/modules/welcome/index.php
 RewriteRule ^iscrizione  app/modules/signup/index.php
 RewriteRule ^dashboard  app/modules/dashboard/index.php
 RewriteRule ^corsi-eventi  app/modules/courses-events/index.php

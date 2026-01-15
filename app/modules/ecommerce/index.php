@@ -28,7 +28,7 @@ loadPartial('layout/header-ecommerce');?>
                     <div class="col-6">
                         <div class="card bg-light-bg h-600px">
                             <div class="card-body d-flex flex-column">
-                                <img class="h-250px w-100 object-fit-cover rounded" src="<?=ROOT?>app/assets/images/course.webp" alt=""/>
+                                <img class="h-250px w-100 object-fit-cover rounded" src="<?=ROOT?>app/assets/images/course.webp" alt="persona che scrive su un blocco di fogli"/>
                                 <h2 class="mt-12">
                                     Come faccio a registrarmi e tesserarmi?
                                 </h2>
