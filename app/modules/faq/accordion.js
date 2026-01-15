@@ -1,16 +1,18 @@
-const button = document.getElementById('accordion-button');
-const div = document.getElementById('accordion-text');
+const button = document.querySelectorAll('.accordion-button');
+const div = document.querySelectorAll('.accordion-text');
 
-button.addEventListener('click', function() {
-    if(div.classList.contains('overflow-hidden')) {
-        div.classList.remove('overflow-hidden');
-        div.classList.add('overflow-auto', 'mb-8');
-        div.style.maxHeight = '300px';
-        button.textContent = "Leggi di meno"
-    } else {
-        div.classList.remove('overflow-auto', 'mb-8');
-        div.classList.add('overflow-hidden');
-        div.style.maxHeight = '0';
-        button.textContent = "Leggi di più"
-    }
+div.forEach((el, i) => {
+    button[i].addEventListener('click', function() {
+        if(el.classList.contains('overflow-hidden')) {
+            el.classList.remove('overflow-hidden');
+            el.classList.add('overflow-auto', 'mb-8');
+            el.style.maxHeight = '300px';
+            button[i].textContent = "Leggi di meno"
+        } else {
+            el.classList.remove('overflow-auto', 'mb-8');
+            el.classList.add('overflow-hidden');
+            el.style.maxHeight = '0';
+            button[i].textContent = "Leggi di più"
+        }
+    })
 })
