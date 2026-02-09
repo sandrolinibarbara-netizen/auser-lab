@@ -12,8 +12,8 @@
 <!--            ><img class="h-25px" src="--><?php //= ROOT?><!--app/assets/svgs/Auser_logo_white.webp" alt="auser-logo"/>-->
 <!--                <span id="tooltip-redirect" class="d-none rounded text-auser p-2 bg-light position-absolute top-100 start-50 z-index-3" style="transform: translate(-50%, 20%); white-space: nowrap">Torna su Auser Cremona</span>-->
 <!--            </a>-->
-            <a href="<?=ROOT.'home?show=ecommerce'?>" class="btn btn-auser border border-auser text-white d-flex align-items-center text-hover-white position-relative better-hover px-6 py-4">Corsi ed eventi</a>
-            <a href="<?=ROOT.'home?show=ondemand'?>" class="btn btn-auser border border-auser text-white d-flex align-items-center text-hover-white position-relative better-hover px-6 py-4">On-demand</a>
+            <a href="<?=ROOT.'home?show=ecommerce'?>" class="btn btn-auser border border-auser text-white d-flex align-items-center text-hover-white position-relative better-hover px-6 py-4">Corsi ed eventi LIVE</a>
+            <a href="<?=ROOT.'home?show=ondemand'?>" class="btn btn-auser border border-auser text-white d-flex align-items-center text-hover-white position-relative better-hover px-6 py-4">Corsi ed eventi ON DEMAND</a>
             <a class="btn btn-auser border border-auser text-white d-flex align-items-center text-hover-white position-relative better-hover px-6 py-4">Tutorial</a>
         </div>
         <div class="d-flex gap-4">

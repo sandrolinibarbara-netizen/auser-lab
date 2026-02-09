@@ -41,9 +41,9 @@ loadPartial('layout/header-ecommerce');?>
                                     la registrazione e procedere al tesseramento in un secondo momento.
                                 </p>
                                 <div class="w-100 text-end mt-auto">
-                                    <button type="submit" class="btn btn-success mt-4">
+                                    <a href="<?= isset($_SESSION[SESSIONROOT]['user']) ? ROOT."dashboard" : ROOT."iscrizione"?>" class="btn btn-success mt-4">
                                         Continua &rarr;
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

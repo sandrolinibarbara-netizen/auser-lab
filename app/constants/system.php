@@ -54,20 +54,20 @@ define("DEFAULTLANGUAGE", "it");
 define("AES", "0dd62947-c0f0-4e98-aa5e-f3c02b415a90");
 define("IV", 'e84d9f0c-418b-43fd-adca-bf3073fb0aee');
 #Email
-//define("EMAILHOST", "mail.devpws.it");
+//define("EMAILHOST", "mail.kapeeto.com");
 //define("EMAILSMPTAUTH", true);
-//define("EMAILUSERNAME", "auser@devpws.it");
-//define("EMAILPWD", "Q?2SXzrk)G~H");
+//define("EMAILUSERNAME", "hello@kapeeto.com");
+//define("EMAILPWD", "RizGdZ+=;x5q");
 //define("EMAILPORT", 587);
-//define("EMAILSENDER", "auser@devpws.it");
-//define("EMAILSENDERAVATAR", "EVENT | Auser");
+//define("EMAILSENDER", "hello@kapeeto.com");
+//define("EMAILSENDERAVATAR", "Auser Lab");
 
 define("EMAILHOST", "mail.auserlabcr.it");
 define("EMAILSMPTAUTH", true);
-define("EMAILUSERNAME", "auserlabcr@nebbiamail.it");
-define("EMAILPWD", "P0(7gH_!934l");
+define("EMAILUSERNAME", "info@auserlabcr.it");
+define("EMAILPWD", "Tr5_!f!_pp07");
 define("EMAILPORT", 587);
-define("EMAILSENDER", "auserlabcr@nebbiamail.it");
+define("EMAILSENDER", "info@auserlabcr.it");
 define("EMAILSENDERAVATAR", "Auser Lab");
 // Auser SDK ID
 define("ZOOMSDKKEY", "TiT3ypxRHaXOGibUSb7A");

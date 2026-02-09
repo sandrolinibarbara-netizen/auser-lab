@@ -2,11 +2,8 @@
 $ondemand = $data[0]['data_inizio'] === '01/01/3000';
 loadPartial('layout/head');
 loadPartial('layout/page');
-if($ondemand) {
-    loadPartial('layout/header-ondemand');
-} else {
-    loadPartial('layout/header-ecommerce');
-}
+loadPartial('layout/header-ecommerce');
+
 ?>
 
     <div id="kt_app_content" class="app-content flex-column-fluid my-10">

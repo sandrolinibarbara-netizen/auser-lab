@@ -3,7 +3,7 @@
     <div class="card-header py-7">
         <!--begin::Title-->
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold text-gray-800">Prossimi eventi</span>
+            <span class="card-label fw-bold text-gray-800">Prossimi eventi live</span>
         </h3>
         <!--end::Title-->
         <!--begin::Toolbar-->
