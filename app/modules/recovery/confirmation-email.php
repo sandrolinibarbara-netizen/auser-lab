@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
         <div class="w-100 mx-10 d-flex justify-content-between align-items-center">
             <div class="py-4">
                 <a href="<?=ROOT?>home?show=ecommerce">
-                    <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="h-75px app-sidebar-logo-default" />
+                    <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.webp" class="h-75px app-sidebar-logo-default" />
                 </a>
             </div>
             <div class="d-flex gap-4">

@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 <div class="d-flex flex-column flex-root" id="kt_app_root">
     <div class="bg-auser w-100">
         <a href="<?=ROOT?>home?show=ecommerce">
-            <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="h-75px mx-10 my-4" />
+            <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.webp" class="h-75px mx-10 my-4" />
         </a>
     </div>
     <!--begin::Authentication - Sign-in -->

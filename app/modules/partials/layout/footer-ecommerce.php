@@ -1,16 +1,16 @@
 <div class="bg-auser d-flex" style="height: 33vh">
-    <div class="w-100 mx-10">
+    <div class="w-100 mx-20">
         <div class="py-4 d-flex gap-8 align-items-center mt-8 justify-content-between" style="height: fit-content">
-            <div>
+            <div class="d-flex flex-column">
                 <a href="<?=ROOT?>home?show=ecommerce" class="text-decoration-none">
-                    <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="w-250px app-sidebar-logo-default" />
+                    <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.webp" class="w-250px app-sidebar-logo-default" />
                 </a>
-                <a href="https://www.ausercomprensoriodicremona.it/"
+                <a href="https://www.auserunipopcremona.com"
                    target="_blank"
                    class="btn btn-auser border border-white text-white text-hover-white position-relative better-hover text-center"
                    onmouseenter="showTooltip({id: 'redirect'})" onmouseleave="hideTooltip({id: 'redirect'})"
                 >
-                    ausercomprensoriodicremona.it
+                    ausercomprensoriodicremona.com
                     <span id="tooltip-redirect" class="d-none rounded text-auser py-2 px-3 bg-light position-absolute top-100 start-50 z-index-3" style="transform: translate(-50%, 20%); white-space: nowrap">Torna su Auser Cremona</span>
                 </a>
 
@@ -28,4 +28,9 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="position-fixed bottom-0 pb-5 gap-4 w-100 d-flex justify-content-center">
+    <a href="https://www.iubenda.com/privacy-policy/19079142" class="position-absolute iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy ">Privacy Policy</a>
+    <a href="https://www.iubenda.com/privacy-policy/19079142/cookie-policy" class="position-absolute iubenda-white iubenda-noiframe iubenda-embed" title="Cookie Policy ">Cookie Policy</a>
 </div>

@@ -1,7 +1,7 @@
 <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
     <!--begin::Logo image-->
     <a href="<?=ROOT?>home?show=ecommerce">
-        <img alt="auser-ogo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="w-100 app-sidebar-logo-default" />
+        <img alt="auser-ogo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.webp" class="w-100 app-sidebar-logo-default" />
     </a>
     <!--end::Logo image-->
     <!--begin::Sidebar toggle-->

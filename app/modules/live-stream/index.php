@@ -4,7 +4,7 @@ loadPartial('layout/page');?>
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
             <div id="upper-menu" class="bg-auser w-100 d-flex align-items-center justify-content-between position-relative" style="z-index: 1500">
-                <img alt="auser-logo" class="w-200px py-2 px-8" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" />
+                <img alt="auser-logo" class="w-200px py-2 px-8" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.webp" />
                 <a class="btn btn-surface text-auser text-hover-white mx-8 rightFont better-hover" href="<?=ROOT.'dashboard?id='.$_SESSION[SESSIONROOT]['user']?>" style="border: #D9D9D9 solid 1px">
                     <i class="ki-outline ki-user text-auser"></i>
                     Area riservata

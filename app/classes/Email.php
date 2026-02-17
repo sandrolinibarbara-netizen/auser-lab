@@ -13,6 +13,8 @@ class Email extends PHPMailer {
 
         $this->SMTPDebug = true;
         $this->isSMTP();
+        $this->Helo = 'ec2-3-69-38-63.eu-central-1.compute.amazonaws.com';
+        $this->Hostname = 'ec2-3-69-38-63.eu-central-1.compute.amazonaws.com';
         $this->Host = EMAILHOST;
         $this->SMTPAuth = EMAILSMPTAUTH;
         $this->Username = EMAILUSERNAME;

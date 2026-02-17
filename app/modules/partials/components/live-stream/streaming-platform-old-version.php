@@ -82,7 +82,7 @@ if($parsed['lezione'][0]['url'] !== NULL) {
         <video id="embedded-video" class="video-js vjs-default-skin w-75 h-500px rounded d-none" controls><source src="<?=ROOT.'app/assets/videos/'.$parsed['lezione'][0]['path_video']?>"></video>
     <?php elseif($parsed['lezione'][0]['zoom_meeting'] !== NULL) :?>
         <div id="wait-meeting" class="w-75 h-500px rounded bg-auser d-flex flex-column gap-8 align-items-center justify-content-center">
-            <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="w-50"/>
+            <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.webp" class="w-50"/>
             <button class="rounded btn btn-light-bg text-black" onclick="getSignature()">Unisciti alla lezione</button>
         </div>
         <div id="zoom-box" class="w-100 gap-16 d-flex d-none position-relative">

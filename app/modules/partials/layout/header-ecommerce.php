@@ -2,7 +2,7 @@
     <div class="w-100 mx-10 d-flex justify-content-between align-items-center">
         <div class="py-4 d-flex gap-4 align-items-center">
             <a href="<?=ROOT?>home?show=ecommerce">
-                <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.svg" class="h-75px app-sidebar-logo-default" />
+                <img alt="auser-logo" src="<?= ROOT?>app/assets/svgs/Auser Unipop Cremona Image_white.webp" class="h-75px app-sidebar-logo-default" />
             </a>
 <!--            <a-->
 <!--                    onmouseenter="showTooltip({id: 'redirect'})" onmouseleave="hideTooltip({id: 'redirect'})"-->
