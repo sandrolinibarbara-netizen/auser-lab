@@ -12,6 +12,7 @@ loadPartial('layout/header-ecommerce');?>
         <!--end::Content container-->
     </div>
     <input type="text" id="root" name="root" value="<?php echo ROOT;?>" hidden readonly>
+    <input type="hidden" id="user-logged" value="<?= isset($_SESSION[SESSIONROOT]['user']) ? '1' : '0' ?>">
 <?php loadPartial('layout/end-page');
 loadPartial('layout/scripts/base');?>
     <script src="<?=ROOT?>app/modules/partials/components/ecommerce/search.js"></script>

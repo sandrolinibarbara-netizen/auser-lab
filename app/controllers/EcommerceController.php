@@ -90,6 +90,12 @@ if(isset($_POST['action']) && $_POST['action'] === 'getSearch') {
     $products = new Ecommerce();
     $param = $_POST['param'] ?? "";
     $result = $products->getProducts($param);
+    if(!isset($_SESSION[SESSIONROOT]['user']) && isset($result['data']) && is_array($result['data'])) {
+        foreach($result['data'] as &$item) {
+            unset($item['importo']);
+        }
+        unset($item);
+    }
     echo json_encode($result);
 }
 
@@ -107,6 +113,12 @@ if(isset($_POST['action']) && $_POST['action'] === 'getOnDemand') {
     $products = new Ecommerce();
     $param = $_POST['param'] ?? "";
     $result = $products->getOnDemand($param);
+    if(!isset($_SESSION[SESSIONROOT]['user']) && isset($result['data']) && is_array($result['data'])) {
+        foreach($result['data'] as &$item) {
+            unset($item['importo']);
+        }
+        unset($item);
+    }
     echo json_encode($result);
 }
 

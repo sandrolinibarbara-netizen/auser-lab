@@ -39,19 +39,33 @@ if($ondemand) {
                             <div class="d-flex flex-column align-items-center justify-content-center gap-4 mx-4 mb-4 mt-6">
                                 <div class="w-100 text-start">
                                     <h4><?=$data[0]['diretta']?></h4>
-                                    <div class="separator mb-2"></div>
-                                    <p class="p-1">Per partecipare a questo evento è necessario <?php echo(!isset($data[0]['iscrizione']) || $data[0]['iscrizione'] == null || count($data[0]['iscrizione']) == 0) ? '': 'essere tesserati e '?>versare il relativo contributo</p>
+                                    <?php if(!isset($_SESSION[SESSIONROOT]['user'])) : ?>
+                                        <div class="separator mb-2"></div>
+                                        <p class="p-1">Per visualizzare le informazione relative alle modalità di partecipazione, devi essere iscritto alla piattaforma</p>
+                                        <div class="separator m-2"></div>
+                                    <?php elseif(in_array("Tesseramento", $data[0]['iscrizione'])) :?>
+                                        <div class="separator mb-2"></div>
+                                        <p class="p-1">Per partecipare a questo evento è necessario essere tesserati</p>
+                                        <div class="separator m-2"></div>
+                                    <?php elseif(in_array("Accesso libero", $data[0]['iscrizione'])) :?>
+                                        <div class="separator mb-2"></div>
+                                        <p class="p-1">Per partecipare a questo evento non è necessario essere tesserati</p>
+                                        <div class="separator m-2"></div>
+                                    <?php endif; ?>
+                                    <p>Ai soci e alle socie Auser che parteciperanno a questa attività potrebbe essere richiesto un contributo a sostegno delle spese organizzative</p>
                                     <div class="separator m-2"></div>
-                                    <p class="mt-4 mb-2 w-100 text-end fw-bold fs-4"><?php echo($data[0]['importo'] === 0 || !$data[0]['importo']) ? 'Gratuito' : '€' . $data[0]['importo'] . ',00'?></p>
+                                    <?php if(isset($_SESSION[SESSIONROOT]['user']) && (isset($data[0]['tesseramentoValido']) || in_array("Accesso libero", $data[0]['iscrizione']))) : ?>
+                                        <p class="mt-4 mb-2 w-100 text-end fw-bold fs-4"><?php echo($data[0]['importo'] === 0 || !$data[0]['importo']) ? 'Evento gratuito' : 'Contributo: €' . $data[0]['importo'] . ',00'?></p>
+                                    <?php endif; ?>
                                 </div>
                                 <?php if(isset($_SESSION[SESSIONROOT]['user'])) : ?>
                                     <?php if($data[0]['posti'] == 0) :?>
                                         <button class="btn btn-danger d-flex align-items-center justify-content-center"><i class="ki-outline ki-information-5 fs-2"></i> Posti esauriti</button>
-                                    <?php elseif(!isset($data[0]['tesseramentoValido']) && $_SESSION[SESSIONROOT]['group'] != 1) :?>
-                                        <button class="btn btn-danger d-flex align-items-center justify-content-center"><i class="ki-outline ki-information-5 fs-2"></i> Per poter effettuare l'acquisto devi essere tesserato</button>
+                                    <?php elseif((!isset($data[0]['tesseramentoValido']) && in_array("Tesseramento", $data[0]['iscrizione'])) && $_SESSION[SESSIONROOT]['group'] != 1) :?>
+                                        <button class="btn btn-danger d-flex align-items-center justify-content-center"><i class="ki-outline ki-information-5 fs-2"></i> Per partecipare a questo evento devi essere tesserato</button>
                                     <?php elseif($data[0]['acquistato'] === 1):?>
                                         <button class="btn btn-warning d-flex align-items-center justify-content-center"><i class="ki-outline ki-information-5 fs-2"></i> Partecipi già a questo evento</button>
-                                    <?php elseif($data[0]['importo'] === 0 || !$data[0]['importo']):?>
+                                    <?php elseif(($data[0]['importo'] === 0 || !$data[0]['importo']) && (in_array("Accesso libero", $data[0]['iscrizione']) || isset($data[0]['tesseramentoValido']))):?>
                                         <button id='register-free' value="<?='e-'.$data[0]['id']?>" class="btn btn-success d-flex align-items-center justify-content-center"><i class="ki-outline ki-bookmark fs-2"></i> Registrati all'evento</button>
                                     <?php else:?>
                                         <button
@@ -60,7 +74,9 @@ if($ondemand) {
                                                 echo (in_array('e-'.$data[0]['id'], $_SESSION[SESSIONROOT]['cart'][$_SESSION[SESSIONROOT]['user']])) ? 'disabled' : '';
                                             }
                                             ?>
-                                                id="add-cart-button" value="<?='e-'.$data[0]['id']?>" class="btn btn-success d-flex align-items-center justify-content-center"><i class="ki-outline ki-handcart fs-2"></i> Aggiungi al carrello</button>
+                                                id="add-cart-button" value="<?='e-'.$data[0]['id']?>" class="btn btn-success d-flex align-items-center justify-content-center"><i class="ki-outline ki-handcart fs-2"></i>
+                                            Aggiungi al carrello
+                                        </button>
                                     <?php endif;?>
                                 <?php else: ?>
                                     <a href="<?= ROOT.'login'?>" class="btn btn-outline-success btn-outline d-flex align-items-center justify-content-center"><i class="ki-outline ki-key fs-2"></i> Effettua l'accesso</a>

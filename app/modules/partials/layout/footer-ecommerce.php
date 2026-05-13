@@ -1,4 +1,4 @@
-<div class="bg-auser d-flex" style="height: 33vh">
+<div class="bg-auser d-flex" style="height: 37.5vh">
     <div class="w-100 mx-20">
         <div class="py-4 d-flex gap-8 align-items-center mt-8 justify-content-between" style="height: fit-content">
             <div class="d-flex flex-column">
@@ -26,6 +26,11 @@
                     <a class="btn btn-auser border border-auser text-white d-flex align-items-center text-hover-white position-relative better-hover-footer">Privacy policy</a>
                 </div>
             </div>
+        </div>
+        <div class="w-100 text-white text-center py-4">
+            <p>
+                Progetto finanziato dal PNRR – Next Generation EU - Transizione Digitale Organismi Culturali e CreativiCup: C87J23002250008  | Cor: 15908312
+            </p>
         </div>
     </div>
 </div>

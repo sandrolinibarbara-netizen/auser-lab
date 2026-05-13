@@ -4,6 +4,8 @@ const formOnDemand = document.getElementById('form-on-demand')
 const addToCartButton = document.getElementById('add-cart-button')
 const registerFreeItem = document.getElementById('register-free')
 const grid = document.getElementById('courses-events-grid');
+const userLoggedInput = document.getElementById('user-logged');
+const isUserLogged = userLoggedInput ? userLoggedInput.value === '1' : false;
 
 const find = window.location.search;
 const params = new URLSearchParams(find);
@@ -59,6 +61,20 @@ if(registerFreeItem) {
             }
         })
     })
+}
+function getPriceContainer(el) {
+    if(!isUserLogged) return null;
+
+    const priceContainer = document.createElement('div');
+    priceContainer.classList.add('mt-auto');
+    const separatorTwo = document.createElement('div');
+    separatorTwo.classList.add('separator', 'my-4')
+    const price = document.createElement('p');
+    price.classList.add('w-100', 'text-end', 'fs-2', 'fw-bold')
+    price.textContent = 'Contributo: ' + (el.importo === 0 || !el.importo ? 'gratuito' : '€' + el.importo + ',00')
+    priceContainer.append(separatorTwo, price);
+
+    return priceContainer;
 }
 function search(e) {
     e.preventDefault();
@@ -246,18 +262,12 @@ function generateItems(parsed) {
         const speakers = document.createElement('p');
         speakers.classList.add('mb-1');
         speakers.textContent = el.categoria === 1 ? 'Insegnanti: ' + el.insegnanti.join(", ") : 'Relatori: ' + el.relatori.join(", ")
-        const priceContainer = document.createElement('div');
-        priceContainer.classList.add('mt-auto');
-        const separatorTwo = document.createElement('div');
-        separatorTwo.classList.add('separator', 'my-4')
-        const price = document.createElement('p');
-        price.classList.add('w-100', 'text-end', 'fs-2', 'fw-bold')
-        price.textContent = 'Contributo: ' + (el.importo === 0 || !el.importo ? 'gratuito' : '€' + el.importo + ',00')
+        const priceContainer = getPriceContainer(el);
 
         topContainer.append(iconsContainer);
         imgContainer.append(img);
-        priceContainer.append(separatorTwo, price);
-        body.append(topContainer, imgContainer, title, when, separatorOne, availability, length, mode, speakers, priceContainer);
+        body.append(topContainer, imgContainer, title, when, separatorOne, availability, length, mode, speakers);
+        if(priceContainer) body.append(priceContainer);
         card.append(body);
         link.append(card);
         col.append(link);
@@ -332,18 +342,12 @@ function generateOnDemand(parsed) {
         const speakers = document.createElement('p');
         speakers.classList.add('mb-1');
         speakers.textContent = el.categoria === 1 ? 'Insegnanti: ' + el.insegnanti.join(", ") : 'Relatori: ' + el.relatori.join(", ")
-        const priceContainer = document.createElement('div');
-        priceContainer.classList.add('mt-auto');
-        const separatorTwo = document.createElement('div');
-        separatorTwo.classList.add('separator', 'my-4')
-        const price = document.createElement('p');
-        price.classList.add('w-100', 'text-end', 'fs-2', 'fw-bold')
-        price.textContent = 'Contributo: ' + (el.importo === 0 || !el.importo ? 'gratuito' : '€' + el.importo + ',00')
+        const priceContainer = getPriceContainer(el);
 
         topContainer.append(iconsContainer);
         imgContainer.append(img);
-        priceContainer.append(separatorTwo, price);
-        body.append(topContainer, imgContainer, title, when, separatorOne, length, mode, speakers, priceContainer);
+        body.append(topContainer, imgContainer, title, when, separatorOne, length, mode, speakers);
+        if(priceContainer) body.append(priceContainer);
         card.append(body);
         link.append(card);
         col.append(link);
